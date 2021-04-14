@@ -1,0 +1,13 @@
+* {
+    color: white;
+}
+
+#ready-switch {
+    height: 20px;
+    width: 50px;
+}
+
+#ready-switch-label {
+    width: fit-content;
+    height: fit-content;
+}

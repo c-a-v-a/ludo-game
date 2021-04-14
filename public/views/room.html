@@ -4,13 +4,33 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="/css/bootstrap.css">
+
+  <!-- My CSS -->
+  <link rel="stylesheet" href="/css/room.css">
+
   <title>Ludo game room</title>
 </head>
 <body class="bg-dark">
-  <div class="container"></div>
+  <div class="container">
+    <!-- Row for players info -->
+    <div class="row d-flex justify-content-center" id="players-row"></div>
+
+    <!-- Row for ready switch -->
+    <div class="row form-switch d-flex justify-content-center" id="ready-row">
+      <input class="form-check-input" type="checkbox" id="ready-switch">
+      <label class="form-check-label" for="ready-switch" id="ready-switch-label"> Ready </label>
+    </div>
+
+    <!-- Row for game -->
+    <div class="row d-none" id="game-row">
+      <h1>GAME</h1>
+    </div>
+  </div>
+
   <!-- My JS -->
-  <script src="/src/room.js"></script>
+  <script type="module" src="/src/room/room.js"></script>
 </body>
 </html>

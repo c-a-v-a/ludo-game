@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
-    "build-src": "tsc -p ./private/src/tsconfig.json",
-    "build-private": "tsc -p ./private/tsconfig.json",
+    "build-helper": "tsc -p ./helper-functions/ts/tsconfig.json",
+    "build-backend": "tsc -p ./backend-ts/tsconfig.json",
+    "build-frontend": "tsc -p ./frontend/tsconfig.json",
     "dev": "ts-node-dev --respawn app.ts",
-    "build": "tsc"
+    "build": "yarn build-backend && yarn build-frontend && yarn build-helper"
   },
   "author": "c-a-v-a",
   "license": "GPL-3.0",
@@ -17,7 +18,7 @@
     "@types/node": "^14.14.34",
     "ts-node": "^9.1.1",
     "ts-node-dev": "^1.1.6",
-    "typescript": "^4.2.3"
+    "typescript": "^4.2.4"
   },
   "dependencies": {
     "dotenv": "^8.2.0",
