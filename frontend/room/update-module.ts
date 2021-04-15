@@ -1,5 +1,8 @@
 // * Update module for room.js
+import { response } from 'express';
+import { checkIfPlayerReady } from './ready-module.js';
 import { renderPlayers } from './render-module.js';
+import { checkIfMyTurn } from './turn-module.js';
 
 /**
  * Getting information about player's room
@@ -33,11 +36,21 @@ function updatePage() {
       // Render players boxes
       renderPlayers(JSON.parse(info).players);
 
+      console.log(JSON.parse(info).hasGameStarted);
+
       // Check if game has started
       if (JSON.parse(info).hasGameStarted) {
         // Hide the ready switch
         document.getElementById('ready-row')!.classList.add('d-none');
         document.getElementById('game-row')!.classList.remove('d-none');
+        
+        checkIfMyTurn()
+        .then((response) => {
+          if (response)
+            document.getElementById('dice-row')!.classList.remove('d-none');
+          else 
+            document.getElementById('dice-row')!.classList.add('d-none');
+        });
       }
     });
 }

@@ -72,6 +72,7 @@ async function createNewRoom(req: Request, res: Response){
       },
     ],
     availableColors: colors,
+    turn: 0,
   });
 
   // Inserting room object to mongodb
@@ -119,6 +120,7 @@ async function addPlayerToRoom(req: Request, res: Response, doc: mongoose.Docume
       nick: playerNick,
       color: playerColor,
       ready: false,
+      tokens: tokens,
     }
 
     players.push(player);
@@ -136,7 +138,6 @@ async function addPlayerToRoom(req: Request, res: Response, doc: mongoose.Docume
   // Update record
   (doc as any).players = players;
   (doc as any).availableColors = availableColors;
-  (doc as any).tokens = tokens;
 
   // Save update in db
   doc.save()

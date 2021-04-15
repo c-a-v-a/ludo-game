@@ -11,6 +11,8 @@ import { getRoomInfo } from './backend-js/routes/room-info-route.js';
 import { changePlayerState } from './backend-js/routes/change-player-state-route.js'
 // @ts-ignore
 import { canGameStart } from './backend-js/routes/can-game-start-route.js';
+// @ts-ignore
+import { whoseTurn } from './backend-js/routes/whose-turn-route.js';
 
 require('dotenv').config();
 
@@ -74,3 +76,6 @@ app.post('/changePlayerState', changePlayerState);
 
 // Route for checking if game can start
 app.post('/canGameStart', canGameStart);
+
+// Rout for checking if it's player turn
+app.post('/whoseTurn', whoseTurn);

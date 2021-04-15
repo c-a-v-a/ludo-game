@@ -20,6 +20,7 @@ const roomSchema = new Schema({
     },
   ],
   availableColors: [ String ],
+  turn: Number,
 }, { timestamps: true, });
 
 // * Creating model

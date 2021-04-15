@@ -42,6 +42,7 @@ exports.nickRouteFunction = nickRouteFunction;
 async function createNewRoom(req, res) {
     const playerNick = req.body.nick;
     const id = mongoose_1.default.Types.ObjectId();
+    const tokens = [0, 0, 0, 0];
     let colors = [];
     let playerColor = '';
     // Creating color array
@@ -67,9 +68,11 @@ async function createNewRoom(req, res) {
                 nick: playerNick,
                 color: playerColor,
                 ready: false,
+                tokens: tokens,
             },
         ],
         availableColors: colors,
+        turn: 0,
     });
     // Inserting room object to mongodb
     room.save()
@@ -90,6 +93,7 @@ async function addPlayerToRoom(req, res, doc) {
     const existingRoom = doc;
     const id = existingRoom._id;
     const playerNick = req.body.nick;
+    const tokens = [0, 0, 0, 0];
     let players = existingRoom.players;
     let availableColors = existingRoom.availableColors;
     let playerColor = '';
@@ -110,6 +114,7 @@ async function addPlayerToRoom(req, res, doc) {
             nick: playerNick,
             color: playerColor,
             ready: false,
+            tokens: tokens,
         };
         players.push(player);
     }
