@@ -26,6 +26,7 @@ const roomSchema = new Schema({
     ],
     availableColors: [String],
     turn: Number,
+    dice: Number,
 }, { timestamps: true, });
 // * Creating model
 const Room = mongoose_1.default.model('room', roomSchema);

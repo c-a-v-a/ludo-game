@@ -9,7 +9,6 @@ const room_model_js_1 = require("../models/room-model.js");
 // ! Used @ts-ignore because of module error, works fine for now.
 // @ts-ignore
 const helper_functions_js_1 = require("../../helper-functions/js/helper-functions.js");
-require('dotenv').config();
 /**
  * Function for /nick POST request
  * @param req { Request } - request object from express
@@ -73,6 +72,7 @@ async function createNewRoom(req, res) {
         ],
         availableColors: colors,
         turn: 0,
+        dice: 0,
     });
     // Inserting room object to mongodb
     room.save()

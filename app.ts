@@ -13,6 +13,8 @@ import { changePlayerState } from './backend-js/routes/change-player-state-route
 import { canGameStart } from './backend-js/routes/can-game-start-route.js';
 // @ts-ignore
 import { whoseTurn } from './backend-js/routes/whose-turn-route.js';
+// @ts-ignore
+import { diceRoll } from './backend-js/routes/dice-roll-route.js';
 
 require('dotenv').config();
 
@@ -77,5 +79,8 @@ app.post('/changePlayerState', changePlayerState);
 // Route for checking if game can start
 app.post('/canGameStart', canGameStart);
 
-// Rout for checking if it's player turn
+// Route for checking if it's player turn
 app.post('/whoseTurn', whoseTurn);
+
+// Route for rolling the dice
+app.post('/diceRoll', diceRoll); 

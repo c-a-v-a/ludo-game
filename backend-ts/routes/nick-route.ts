@@ -5,7 +5,6 @@ import { Room } from '../models/room-model.js';
 // ! Used @ts-ignore because of module error, works fine for now.
 // @ts-ignore
 import { randomInteger } from '../../helper-functions/js/helper-functions.js';
-require('dotenv').config();
 
 /**
  * Function for /nick POST request 
@@ -73,6 +72,7 @@ async function createNewRoom(req: Request, res: Response){
     ],
     availableColors: colors,
     turn: 0,
+    dice: 0,
   });
 
   // Inserting room object to mongodb
