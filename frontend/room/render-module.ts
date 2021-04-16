@@ -5,6 +5,7 @@ interface player {
   nick: string,
   color: string,
   ready: boolean,
+  tokens: Array<Number>
 };
 
 /**

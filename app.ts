@@ -15,6 +15,8 @@ import { canGameStart } from './backend-js/routes/can-game-start-route.js';
 import { whoseTurn } from './backend-js/routes/whose-turn-route.js';
 // @ts-ignore
 import { diceRoll } from './backend-js/routes/dice-roll-route.js';
+// @ts-ignore
+import { moveToken } from './backend-js/routes/move-token-route.js';
 
 require('dotenv').config();
 
@@ -84,3 +86,6 @@ app.post('/whoseTurn', whoseTurn);
 
 // Route for rolling the dice
 app.post('/diceRoll', diceRoll); 
+
+// Route for moving player's token
+app.post('/moveToken', moveToken);

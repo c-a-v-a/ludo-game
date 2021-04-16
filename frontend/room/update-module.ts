@@ -51,6 +51,11 @@ function updatePage() {
           else 
             document.getElementById('dice-row')!.classList.add('d-none');
         });
+
+        if (JSON.parse(info).dice === 0)
+          document.getElementById('rolled-number-row')!.innerText = '';
+        else
+          document.getElementById('rolled-number-row')!.innerText = JSON.parse(info).dice;
       }
     });
 }

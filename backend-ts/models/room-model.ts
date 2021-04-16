@@ -7,6 +7,10 @@ const Schema = mongoose.Schema;
 // players - array of player objects
 //    nick - player's nick
 //    color - player's color (randomly picked)
+//    ready - is player ready
+//    tokens - tokens position
+// turn - whose turn
+// dice - last dice roll or zero
 // openColors - array of not chosen colors in this room
 const roomSchema = new Schema({
   _id: Schema.Types.ObjectId,
@@ -17,6 +21,7 @@ const roomSchema = new Schema({
       color: String,
       ready: Boolean,
       tokens: [ Number ],
+      goal: Number,
     },
   ],
   availableColors: [ String ],
