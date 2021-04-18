@@ -1,5 +1,8 @@
+// * Update module for room.js
 import { renderPlayers } from './render-module.js';
 import { checkIfMyTurn } from './turn-module.js';
+// TODO Add can game start to update
+// TODO Clean files, add jsdocs
 /**
  * Getting information about player's room
  */

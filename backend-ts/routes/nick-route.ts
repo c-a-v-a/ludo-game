@@ -68,6 +68,7 @@ async function createNewRoom(req: Request, res: Response){
         color: playerColor,
         ready: false,
         tokens: tokens,
+        goal: 1,
       },
     ],
     availableColors: colors,
@@ -121,6 +122,7 @@ async function addPlayerToRoom(req: Request, res: Response, doc: mongoose.Docume
       color: playerColor,
       ready: false,
       tokens: tokens,
+      goal: (10*players.length) + 1,
     }
 
     players.push(player);

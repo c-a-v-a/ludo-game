@@ -9,6 +9,7 @@ const Schema = mongoose.Schema;
 //    color - player's color (randomly picked)
 //    ready - is player ready
 //    tokens - tokens position
+//    goal - last field that token has to go to
 // turn - whose turn
 // dice - last dice roll or zero
 // openColors - array of not chosen colors in this room

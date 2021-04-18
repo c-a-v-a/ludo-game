@@ -68,6 +68,7 @@ async function createNewRoom(req, res) {
                 color: playerColor,
                 ready: false,
                 tokens: tokens,
+                goal: 1,
             },
         ],
         availableColors: colors,
@@ -115,6 +116,7 @@ async function addPlayerToRoom(req, res, doc) {
             color: playerColor,
             ready: false,
             tokens: tokens,
+            goal: (10 * players.length) + 1,
         };
         players.push(player);
     }
