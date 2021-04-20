@@ -28,6 +28,7 @@ const roomSchema = new Schema({
             ready: Boolean,
             tokens: [Number],
             goal: Number,
+            house: [Number],
         },
     ],
     availableColors: [String],

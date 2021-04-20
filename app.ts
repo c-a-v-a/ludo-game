@@ -17,6 +17,8 @@ import { whoseTurn } from './backend-js/routes/whose-turn-route.js';
 import { diceRoll } from './backend-js/routes/dice-roll-route.js';
 // @ts-ignore
 import { moveToken } from './backend-js/routes/move-token-route.js';
+// @ts-ignore
+import { ghostToken } from './backend-js/routes/ghost-token-route.js'
 
 require('dotenv').config();
 
@@ -89,3 +91,6 @@ app.post('/diceRoll', diceRoll);
 
 // Route for moving player's token
 app.post('/moveToken', moveToken);
+
+// Route for displaying 'ghost tokens'
+app.post('/ghostToken', ghostToken);
