@@ -13,28 +13,22 @@ function ghostToken(req: Request, res: Response) {
         (req.session as any).playerColor === data.players[data.turn].color
       ) {
         const player = data.players[data.turn];
-        const square: number = player.tokens[tokenNumber] + data.dice;
 
         if (
           player.tokens[tokenNumber] === 0 &&
           (data.dice === 1 || data.dice === 6)
         ) {
           tokenGoOut(data, tokenNumber, res);
-        } 
-        else if (player.tokens[tokenNumber] === 0) {
-        } 
-        else if (player.tokens[tokenNumber] > 100) {
+        } else if (player.tokens[tokenNumber] === 0) {
+        } else if (player.tokens[tokenNumber] > 100) {
           tokenMoveInHouse(data, tokenNumber, res);
-        } 
-        else if (checkIfLastMove(data, tokenNumber)) {
+        } else if (checkIfLastMove(data, tokenNumber)) {
           tokenLastMove(data, tokenNumber, res);
-        } 
-        else {
+        } else {
           tokenMove(data, tokenNumber, res);
         }
 
         data.save();
-
       } else {
         console.log('not ur turn');
       }
@@ -43,15 +37,22 @@ function ghostToken(req: Request, res: Response) {
 }
 
 function tokenGoOut(data: any, tokenNumber: number, res: Response) {
-  res.json({canMove: true, position: data.players[data.turn].goal});
+  res.json({ canMove: true, position: data.players[data.turn].goal });
 }
 
 function tokenMove(data: any, tokenNumber: number, res: Response) {
   const player = data.players[data.turn];
 
   if (player.tokens[data.turn] + data.dice > 40)
-    res.json({canMove: true, position: player.tokens[tokenNumber] + data.dice - 40});
-  else res.json({canMove: true, position: player.tokens[tokenNumber] + data.dice});
+    res.json({
+      canMove: true,
+      position: player.tokens[tokenNumber] + data.dice - 40,
+    });
+  else
+    res.json({
+      canMove: true,
+      position: player.tokens[tokenNumber] + data.dice,
+    });
 }
 
 function tokenLastMove(data: any, tokenNumber: number, res: Response) {
@@ -63,10 +64,10 @@ function tokenLastMove(data: any, tokenNumber: number, res: Response) {
   const tokenHouse = data.dice - (goal - player.tokens[tokenNumber]) - 1;
 
   if (player.house[tokenHouse] === 0) {
-    res.json({canMove: true, position: player.goal * 100 + tokenHouse});
+    res.json({ canMove: true, position: player.goal * 100 + tokenHouse });
 
     console.log('moved to house');
-  } else res.json({canMove: false, position: 0});
+  } else res.json({ canMove: false, position: 0 });
 }
 
 function checkIfLastMove(data: any, tokenNumber: number): boolean {
@@ -75,10 +76,12 @@ function checkIfLastMove(data: any, tokenNumber: number): boolean {
 
   if (goal === 0) goal += 40;
 
-  if (player.tokens[tokenNumber] < goal && player.tokens[tokenNumber] + data.dice > goal)
+  if (
+    player.tokens[tokenNumber] < goal &&
+    player.tokens[tokenNumber] + data.dice > goal
+  )
     return true;
-  else
-    return false;
+  else return false;
 }
 
 function tokenMoveInHouse(data: any, tokenNumber: number, res: Response) {
@@ -86,9 +89,11 @@ function tokenMoveInHouse(data: any, tokenNumber: number, res: Response) {
   const tokenHouseId = player.tokens[tokenNumber] - player.goal * 100;
 
   if (player.house[tokenHouseId + data.dice] === 0) {
-    res.json({canMove: true, position: player.tokens[tokenNumber] + data.dice});
-
-  } else res.json({canMove: false, position: 0});
+    res.json({
+      canMove: true,
+      position: player.tokens[tokenNumber] + data.dice,
+    });
+  } else res.json({ canMove: false, position: 0 });
 }
 
 export { ghostToken };

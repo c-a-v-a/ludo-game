@@ -40,6 +40,7 @@ async function createNewRoom(req: Request, res: Response){
   const tokens = [0, 0, 0, 0];
   let colors: Array<string> = [];
   let playerColor: string = '';
+  let goal: number = 0;
 
   // Creating color array
   if (process.env.COLORS_ARRAY) {
@@ -58,6 +59,24 @@ async function createNewRoom(req: Request, res: Response){
     colors.splice(colorIndex, 1);
   }
 
+  switch (playerColor) {
+    case 'red':
+      goal = 1;
+      break;
+    case 'blue':
+      goal = 11;
+      break;
+    case 'green':
+      goal = 21;
+      break;
+    case 'yellow':
+      goal = 31;
+      break;
+    default:
+      break;
+  }
+
+  // TODO? Add turn by color?
   // Creating model object that will be inserted to mongodb
   const room = new Room({
     _id: id,
@@ -69,7 +88,7 @@ async function createNewRoom(req: Request, res: Response){
         ready: false,
         tokens: tokens,
         house: tokens,
-        goal: 1,
+        goal: goal,
       },
     ],
     availableColors: colors,
@@ -102,6 +121,7 @@ async function addPlayerToRoom(req: Request, res: Response, doc: mongoose.Docume
   let players: Array<object> = existingRoom.players;
   let availableColors: Array<string> = existingRoom.availableColors;
   let playerColor: string = '';
+  let goal: number = 0;
 
   // Set player color, from available colors
   if (availableColors) {
@@ -116,6 +136,23 @@ async function addPlayerToRoom(req: Request, res: Response, doc: mongoose.Docume
     return;
   }
 
+  switch (playerColor) {
+    case 'red':
+      goal = 1;
+      break;
+    case 'blue':
+      goal = 11;
+      break;
+    case 'green':
+      goal = 21;
+      break;
+    case 'yellow':
+      goal = 31;
+      break;
+    default:
+      break;
+  }
+
   // Setup player object and push it to players array
   if (players) {
     const player: object = {
@@ -123,7 +160,7 @@ async function addPlayerToRoom(req: Request, res: Response, doc: mongoose.Docume
       color: playerColor,
       ready: false,
       tokens: tokens,
-      goal: (10*players.length) + 1,
+      goal: goal,
       house: tokens,
     }
 

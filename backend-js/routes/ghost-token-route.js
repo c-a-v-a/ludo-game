@@ -11,7 +11,6 @@ function ghostToken(req, res) {
             if (req.session.playerNick === data.players[data.turn].nick &&
                 req.session.playerColor === data.players[data.turn].color) {
                 const player = data.players[data.turn];
-                const square = player.tokens[tokenNumber] + data.dice;
                 if (player.tokens[tokenNumber] === 0 &&
                     (data.dice === 1 || data.dice === 6)) {
                     tokenGoOut(data, tokenNumber, res);
@@ -42,9 +41,15 @@ function tokenGoOut(data, tokenNumber, res) {
 function tokenMove(data, tokenNumber, res) {
     const player = data.players[data.turn];
     if (player.tokens[data.turn] + data.dice > 40)
-        res.json({ canMove: true, position: player.tokens[tokenNumber] + data.dice - 40 });
+        res.json({
+            canMove: true,
+            position: player.tokens[tokenNumber] + data.dice - 40,
+        });
     else
-        res.json({ canMove: true, position: player.tokens[tokenNumber] + data.dice });
+        res.json({
+            canMove: true,
+            position: player.tokens[tokenNumber] + data.dice,
+        });
 }
 function tokenLastMove(data, tokenNumber, res) {
     const player = data.players[data.turn];
@@ -64,7 +69,8 @@ function checkIfLastMove(data, tokenNumber) {
     let goal = player.goal - 1;
     if (goal === 0)
         goal += 40;
-    if (player.tokens[tokenNumber] < goal && player.tokens[tokenNumber] + data.dice > goal)
+    if (player.tokens[tokenNumber] < goal &&
+        player.tokens[tokenNumber] + data.dice > goal)
         return true;
     else
         return false;
@@ -73,7 +79,10 @@ function tokenMoveInHouse(data, tokenNumber, res) {
     const player = data.players[data.turn];
     const tokenHouseId = player.tokens[tokenNumber] - player.goal * 100;
     if (player.house[tokenHouseId + data.dice] === 0) {
-        res.json({ canMove: true, position: player.tokens[tokenNumber] + data.dice });
+        res.json({
+            canMove: true,
+            position: player.tokens[tokenNumber] + data.dice,
+        });
     }
     else
         res.json({ canMove: false, position: 0 });

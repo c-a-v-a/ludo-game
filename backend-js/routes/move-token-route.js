@@ -11,7 +11,6 @@ function moveToken(req, res) {
             if (req.session.playerNick === data.players[data.turn].nick &&
                 req.session.playerColor === data.players[data.turn].color) {
                 const player = data.players[data.turn];
-                const square = player.tokens[tokenNumber] + data.dice;
                 if (player.tokens[tokenNumber] === 0 &&
                     (data.dice === 1 || data.dice === 6)) {
                     tokenGoOut(data, tokenNumber);
@@ -31,10 +30,10 @@ function moveToken(req, res) {
                     res.send('moved');
                 }
                 if (player.tokens[tokenNumber] !== 0) {
-                    tokenCapture(data, square, req.session.playerNick, req.session.playerColor);
+                    tokenCapture(data, player.tokens[tokenNumber], req.session.playerNick, req.session.playerColor);
                 }
+                // TODO Check capturing tokens
                 data.save();
-                // TODO: change goal, (for color)
             }
             else {
                 console.log('not ur turn');
@@ -59,15 +58,13 @@ function tokenMove(data, tokenNumber) {
 function tokenCapture(data, square, nick, color) {
     for (let player of data.players) {
         if (player.nick !== nick || player.color !== color) {
-            for (let i = 0; i < player.tokens.length; i++) {
-                if (player.tokens === square)
+            for (let i = 0; i < player.tokens.length - 1; i++) {
+                if (player.tokens[i] === square)
                     player.tokens.set(i, 0);
             }
         }
     }
 }
-// TODO Test all functions
-// TODO Create ghost route
 // TODO Create board (table) and player (class) render
 // TODO Add player timeout
 // TODO Add speech synthesis
@@ -90,7 +87,8 @@ function checkIfLastMove(data, tokenNumber) {
     let goal = player.goal - 1;
     if (goal === 0)
         goal += 40;
-    if (player.tokens[tokenNumber] < goal && player.tokens[tokenNumber] + data.dice > goal)
+    if (player.tokens[tokenNumber] < goal &&
+        player.tokens[tokenNumber] + data.dice > goal)
         return true;
     else
         return false;
