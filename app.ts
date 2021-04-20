@@ -18,7 +18,11 @@ import { diceRoll } from './backend-js/routes/dice-roll-route.js';
 // @ts-ignore
 import { moveToken } from './backend-js/routes/move-token-route.js';
 // @ts-ignore
-import { ghostToken } from './backend-js/routes/ghost-token-route.js'
+import { ghostToken } from './backend-js/routes/ghost-token-route.js';
+// @ts-ignore
+import { checkIfCanMove } from './backend-js/routes/check-if-can-move-route.js';
+// @ts-ignore
+import { checkIfGameWon } from './backend-js/routes/check-if-game-won-route.js';
 
 require('dotenv').config();
 
@@ -70,6 +74,22 @@ app.get('/room', (req, res) => {
   res.sendFile(path.join(__dirname, './public/views', 'room.html'));
 });
 
+// Winner route
+app.get('/winner', (req, res) => {
+  res.sendFile(path.join(__dirname, './public/views', 'winner.html'));
+});
+
+// Looser route
+app.get('/looser', (req, res) => {
+  res.sendFile(path.join(__dirname, './public/views', 'looser.html'));
+});
+
+// Game didn't finish route
+app.get('/notFinished', (req, res) => {
+  res.sendFile(path.join(__dirname, './public/views', 'not-finished.html'));
+});
+
+// TODO Setup not finish,winner and looser views.
 // * Set up server POST routes
 // Get nick from client
 app.post('/nick', nickRouteFunction);
@@ -94,3 +114,9 @@ app.post('/moveToken', moveToken);
 
 // Route for displaying 'ghost tokens'
 app.post('/ghostToken', ghostToken);
+
+// Route for checking if player can move
+app.post('/checkIfCanMove', checkIfCanMove);
+
+// Route for checking if game is won
+app.post('/checkIfGameWon', checkIfGameWon)

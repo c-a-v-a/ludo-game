@@ -29,10 +29,15 @@ function moveToken(req, res) {
                     tokenMove(data, tokenNumber);
                     res.send('moved');
                 }
+                console.log(player.tokens[tokenNumber]);
                 if (player.tokens[tokenNumber] !== 0) {
                     tokenCapture(data, player.tokens[tokenNumber], req.session.playerNick, req.session.playerColor);
                 }
-                // TODO Check capturing tokens
+                data.dice = 0;
+                if (data.turn >= data.players.length - 1)
+                    data.turn = 0;
+                else
+                    data.turn++;
                 data.save();
             }
             else {

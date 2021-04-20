@@ -93,6 +93,10 @@ async function createNewRoom(req, res) {
         availableColors: colors,
         turn: 0,
         dice: 0,
+        winner: {
+            nick: 'none',
+            color: 'none',
+        },
     });
     // Inserting room object to mongodb
     room.save()

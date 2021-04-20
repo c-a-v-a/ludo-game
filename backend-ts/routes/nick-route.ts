@@ -5,6 +5,7 @@ import { Room } from '../models/room-model.js';
 // ! Used @ts-ignore because of module error, works fine for now.
 // @ts-ignore
 import { randomInteger } from '../../helper-functions/js/helper-functions.js';
+import { NONAME } from 'node:dns';
 
 /**
  * Function for /nick POST request 
@@ -94,6 +95,10 @@ async function createNewRoom(req: Request, res: Response){
     availableColors: colors,
     turn: 0,
     dice: 0,
+    winner: {
+      nick: 'none',
+      color: 'none',
+    },
   });
 
   // Inserting room object to mongodb

@@ -20,6 +20,7 @@ function ghostToken(req: Request, res: Response) {
         ) {
           tokenGoOut(data, tokenNumber, res);
         } else if (player.tokens[tokenNumber] === 0) {
+          res.json({canMove: false, position: 0});
         } else if (player.tokens[tokenNumber] > 100) {
           tokenMoveInHouse(data, tokenNumber, res);
         } else if (checkIfLastMove(data, tokenNumber)) {
@@ -27,8 +28,6 @@ function ghostToken(req: Request, res: Response) {
         } else {
           tokenMove(data, tokenNumber, res);
         }
-
-        data.save();
       } else {
         console.log('not ur turn');
       }

@@ -20,8 +20,8 @@ function moveToken(req: Request, res: Response) {
           ) {
             tokenGoOut(data, tokenNumber);
             console.log('went out');
-          } else if (player.tokens[tokenNumber] === 0) {
-            console.log('cant go out');
+        } else if (player.tokens[tokenNumber] === 0) {
+          console.log('cant go out');
         } else if (player.tokens[tokenNumber] > 100) {
           tokenMoveInHouse(data, tokenNumber);
         } else if (checkIfLastMove(data, tokenNumber)) {
@@ -39,10 +39,15 @@ function moveToken(req: Request, res: Response) {
             (req.session as any).playerColor
           );
         }
-        // TODO Check capturing tokens
+
+        data.dice = 0;
+        
+        if (data.turn >= data.players.length - 1)
+          data.turn = 0;
+        else
+          data.turn++;
 
         data.save();
-
       } else {
         console.log('not ur turn');
       }
