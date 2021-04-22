@@ -2,7 +2,9 @@
 import { renderPlayers } from './render-module.js';
 import { checkIfMyTurn } from './turn-module.js';
 // TODO Add can game start to update
-// TODO Clean files, add jsdocs
+// TODO Hide dice button when dice !== 0
+// TODO Clean files, add jsdoc
+// TODO Put module in classes with static
 /**
  * Getting information about player's room
  */

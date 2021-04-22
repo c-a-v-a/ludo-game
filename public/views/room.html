@@ -5,10 +5,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Bootstrap CSS -->
+  <!-- * Bootstrap CSS -->
   <link rel="stylesheet" href="/css/bootstrap.css">
 
-  <!-- My CSS -->
+  <!-- * My CSS -->
   <link rel="stylesheet" href="/css/room.css">
 
   <title>Ludo game room</title>
@@ -25,11 +25,11 @@
     </div>
 
     <!-- Row for game -->
-    <div class="row d-none" id="game-row">
-      <button class="btn btn-primary" id="token-button"></button>
+    <div class="row d-flex justify-content-center d-none" id="game-row">
+      <table id="game-board-table"></table>
     </div>
 
-    <!-- Dice roll -->
+    <!--  Dice roll -->
     <div class="row d-flex d-none justify-content-center" id="dice-row">
       <button class="btn btn-primary" id="dice-button">Roll the dice</button>
     </div>
@@ -38,7 +38,7 @@
     <div class="row d-flex justify-content-center" id="rolled-number-row"></div>
   </div>
 
-  <!-- My JS -->
+  <!-- * My JS -->
   <script type="module" src="/src/room/room.js"></script>
 </body>
 </html>

@@ -89,7 +89,6 @@ app.get('/notFinished', (req, res) => {
   res.sendFile(path.join(__dirname, './public/views', 'not-finished.html'));
 });
 
-// TODO Setup not finish,winner and looser views.
 // * Set up server POST routes
 // Get nick from client
 app.post('/nick', nickRouteFunction);

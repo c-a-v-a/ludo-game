@@ -2,7 +2,10 @@
 import { renderPlayers } from './render-module.js';
 import { checkIfMyTurn } from './turn-module.js';
 // TODO Add can game start to update
-// TODO Clean files, add jsdocs
+// TODO Hide dice button when dice !== 0
+// TODO Clean files, add jsdoc
+// TODO Test if game can be won
+// TODO Put module in classes with static
 /**
  * Getting information about player's room
  */
@@ -47,6 +50,8 @@ function updatePage() {
                 document.getElementById('rolled-number-row').innerText = '';
             else
                 document.getElementById('rolled-number-row').innerText = JSON.parse(info).dice;
+            fetch('/checkIfGameWon', { method: 'POST' })
+                .then((response) => { window.location = response.url; });
         }
     });
 }
