@@ -3,7 +3,7 @@ function createGameBoardTable() {
 
   for (let i = 0; i < 11; i++) {
     let tr = document.createElement('tr');
-    
+
     for (let j = 0; j < 11; j++) {
       let td = document.createElement('td');
 
@@ -17,7 +17,7 @@ function createGameBoardTable() {
 function clearTable() {
   let table = document.getElementById('game-board-table');
 
-  if (table?.children.length === 1) {
+  if (table?.children.length === 11) {
     for (let i = 0; i < 11; i++) {
       if (table.children[i].children.length === 11) {
         for (let j = 0; j < 11; j++) {

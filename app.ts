@@ -8,7 +8,7 @@ import { nickRouteFunction } from './backend-js/routes/nick-route.js';
 // @ts-ignore
 import { getRoomInfo } from './backend-js/routes/room-info-route.js';
 // @ts-ignore
-import { changePlayerState } from './backend-js/routes/change-player-state-route.js'
+import { changePlayerState } from './backend-js/routes/change-player-state-route.js';
 // @ts-ignore
 import { canGameStart } from './backend-js/routes/can-game-start-route.js';
 // @ts-ignore
@@ -106,7 +106,7 @@ app.post('/canGameStart', canGameStart);
 app.post('/whoseTurn', whoseTurn);
 
 // Route for rolling the dice
-app.post('/diceRoll', diceRoll); 
+app.post('/diceRoll', diceRoll);
 
 // Route for moving player's token
 app.post('/moveToken', moveToken);
@@ -118,4 +118,8 @@ app.post('/ghostToken', ghostToken);
 app.post('/checkIfCanMove', checkIfCanMove);
 
 // Route for checking if game is won
-app.post('/checkIfGameWon', checkIfGameWon)
+app.post('/checkIfGameWon', checkIfGameWon);
+
+app.post('/whoAmI', (req, res) => {
+  res.json({ nick: (req.session as any).playerNick, color: (req.session as any).playerColor });
+});

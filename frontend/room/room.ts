@@ -3,9 +3,10 @@ import { checkIfPlayerReady } from './ready-module.js';
 import { updatePage } from './update-module.js';
 import { rollTheDice } from './dice-module.js';
 import { createGameBoardTable } from './game-board-table-module.js';
+import { renderTokens } from './render-tokens.js';
 
 window.addEventListener('DOMContentLoaded', function () {
-  // Add event to switch 
+  // Add event to switch
   if (document.getElementById('ready-switch'))
     document.getElementById('ready-switch')!.onchange = checkIfPlayerReady;
 
@@ -19,4 +20,5 @@ window.addEventListener('DOMContentLoaded', function () {
 });
 
 // TODO Clean up/add comments
-// TODO Add UI looks
+// TODO Add player boxes
+// TODO Add dice graphics

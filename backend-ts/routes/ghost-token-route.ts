@@ -14,22 +14,24 @@ function ghostToken(req: Request, res: Response) {
       ) {
         const player = data.players[data.turn];
 
-        if (
-          player.tokens[tokenNumber] === 0 &&
-          (data.dice === 1 || data.dice === 6)
-        ) {
+        if (player.tokens[tokenNumber] === 0 && (data.dice === 1 || data.dice === 6)) {
           tokenGoOut(data, tokenNumber, res);
+          console.log(1);
         } else if (player.tokens[tokenNumber] === 0) {
-          res.json({canMove: false, position: 0});
+          res.json({ canMove: false, position: 0 });
+          console.log(2);
         } else if (player.tokens[tokenNumber] > 100) {
           tokenMoveInHouse(data, tokenNumber, res);
+          console.log(3);
         } else if (checkIfLastMove(data, tokenNumber)) {
           tokenLastMove(data, tokenNumber, res);
+          console.log(4);
         } else {
           tokenMove(data, tokenNumber, res);
+          console.log(5);
         }
       } else {
-        console.log('not ur turn');
+        res.json({ canMove: false });
       }
     }
   });
@@ -37,12 +39,13 @@ function ghostToken(req: Request, res: Response) {
 
 function tokenGoOut(data: any, tokenNumber: number, res: Response) {
   res.json({ canMove: true, position: data.players[data.turn].goal });
+  console.log(data.players[data.turn]);
 }
 
 function tokenMove(data: any, tokenNumber: number, res: Response) {
   const player = data.players[data.turn];
 
-  if (player.tokens[data.turn] + data.dice > 40)
+  if (player.tokens[tokenNumber] + data.dice > 40)
     res.json({
       canMove: true,
       position: player.tokens[tokenNumber] + data.dice - 40,
@@ -75,10 +78,7 @@ function checkIfLastMove(data: any, tokenNumber: number): boolean {
 
   if (goal === 0) goal += 40;
 
-  if (
-    player.tokens[tokenNumber] < goal &&
-    player.tokens[tokenNumber] + data.dice > goal
-  )
+  if (player.tokens[tokenNumber] <= goal && player.tokens[tokenNumber] + data.dice > goal)
     return true;
   else return false;
 }

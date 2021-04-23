@@ -13,13 +13,10 @@ function moveToken(req: Request, res: Response) {
         (req.session as any).playerColor === data.players[data.turn].color
       ) {
         const player = data.players[data.turn];
-        
-        if (
-          player.tokens[tokenNumber] === 0 &&
-          (data.dice === 1 || data.dice === 6)
-          ) {
-            tokenGoOut(data, tokenNumber);
-            console.log('went out');
+
+        if (player.tokens[tokenNumber] === 0 && (data.dice === 1 || data.dice === 6)) {
+          tokenGoOut(data, tokenNumber);
+          console.log('went out');
         } else if (player.tokens[tokenNumber] === 0) {
           console.log('cant go out');
         } else if (player.tokens[tokenNumber] > 100) {
@@ -41,11 +38,9 @@ function moveToken(req: Request, res: Response) {
         }
 
         data.dice = 0;
-        
-        if (data.turn >= data.players.length - 1)
-          data.turn = 0;
-        else
-          data.turn++;
+
+        if (data.turn >= data.players.length - 1) data.turn = 0;
+        else data.turn++;
 
         data.save();
       } else {
@@ -65,7 +60,7 @@ function tokenGoOut(data: any, tokenNumber: number) {
 function tokenMove(data: any, tokenNumber: number) {
   const player = data.players[data.turn];
 
-  if (player.tokens[data.turn] + data.dice > 40)
+  if (player.tokens[tokenNumber] + data.dice > 40)
     player.tokens.set(tokenNumber, player.tokens[tokenNumber] + data.dice - 40);
   else player.tokens.set(tokenNumber, player.tokens[tokenNumber] + data.dice);
 
@@ -75,14 +70,13 @@ function tokenMove(data: any, tokenNumber: number) {
 function tokenCapture(data: any, square: number, nick: string, color: string) {
   for (let player of data.players) {
     if (player.nick !== nick || player.color !== color) {
-      for (let i = 0; i < player.tokens.length - 1; i++) {
+      for (let i = 0; i < player.tokens.length; i++) {
         if (player.tokens[i] === square) player.tokens.set(i, 0);
       }
     }
   }
 }
 
-// TODO Create board (table) and player (class) render
 // TODO Add player timeout
 // TODO Add speech synthesis
 function tokenLastMove(data: any, tokenNumber: number) {
@@ -107,10 +101,7 @@ function checkIfLastMove(data: any, tokenNumber: number): boolean {
 
   if (goal === 0) goal += 40;
 
-  if (
-    player.tokens[tokenNumber] < goal &&
-    player.tokens[tokenNumber] + data.dice > goal
-  )
+  if (player.tokens[tokenNumber] < goal && player.tokens[tokenNumber] + data.dice > goal)
     return true;
   else return false;
 }

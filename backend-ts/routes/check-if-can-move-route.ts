@@ -12,15 +12,8 @@ function checkIfCanMove(req: Request, res: Response) {
       ) {
         const player = data.players[data.turn];
 
-        for (
-          let tokenNumber = 0;
-          tokenNumber < player.tokens.length - 1;
-          tokenNumber++
-        ) {
-          if (
-            player.tokens[tokenNumber] === 0 &&
-            (data.dice === 1 || data.dice === 6)
-          ) {
+        for (let tokenNumber = 0; tokenNumber < player.tokens.length; tokenNumber++) {
+          if (player.tokens[tokenNumber] === 0 && (data.dice === 1 || data.dice === 6)) {
             res.json({ canMove: true });
           } else if (player.tokens[tokenNumber] === 0) {
             res.json({ canMove: false });
@@ -48,8 +41,8 @@ function tokenLastMove(data: any, tokenNumber: number, res: Response) {
   const tokenHouse = data.dice - (goal - player.tokens[tokenNumber]) - 1;
 
   if (player.house[tokenHouse] === 0) {
-    res.json({ canMove: true});
-  } else res.json({ canMove: false});
+    res.json({ canMove: true });
+  } else res.json({ canMove: false });
 }
 
 function checkIfLastMove(data: any, tokenNumber: number): boolean {
@@ -58,10 +51,7 @@ function checkIfLastMove(data: any, tokenNumber: number): boolean {
 
   if (goal === 0) goal += 40;
 
-  if (
-    player.tokens[tokenNumber] < goal &&
-    player.tokens[tokenNumber] + data.dice > goal
-  )
+  if (player.tokens[tokenNumber] < goal && player.tokens[tokenNumber] + data.dice > goal)
     return true;
   else return false;
 }

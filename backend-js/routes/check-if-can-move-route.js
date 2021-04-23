@@ -10,9 +10,8 @@ function checkIfCanMove(req, res) {
             if (req.session.playerNick === data.players[data.turn].nick &&
                 req.session.playerColor === data.players[data.turn].color) {
                 const player = data.players[data.turn];
-                for (let tokenNumber = 0; tokenNumber < player.tokens.length - 1; tokenNumber++) {
-                    if (player.tokens[tokenNumber] === 0 &&
-                        (data.dice === 1 || data.dice === 6)) {
+                for (let tokenNumber = 0; tokenNumber < player.tokens.length; tokenNumber++) {
+                    if (player.tokens[tokenNumber] === 0 && (data.dice === 1 || data.dice === 6)) {
                         res.json({ canMove: true });
                     }
                     else if (player.tokens[tokenNumber] === 0) {
@@ -53,8 +52,7 @@ function checkIfLastMove(data, tokenNumber) {
     let goal = player.goal - 1;
     if (goal === 0)
         goal += 40;
-    if (player.tokens[tokenNumber] < goal &&
-        player.tokens[tokenNumber] + data.dice > goal)
+    if (player.tokens[tokenNumber] < goal && player.tokens[tokenNumber] + data.dice > goal)
         return true;
     else
         return false;

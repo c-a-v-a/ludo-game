@@ -30,3 +30,8 @@
   border: none;
   width: 40px;
 }
+
+image {
+  width: 30px !important;
+  height: 30px !important;
+}

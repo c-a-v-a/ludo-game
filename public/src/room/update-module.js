@@ -1,10 +1,10 @@
 // * Update module for room.js
 import { renderPlayers } from './render-module.js';
 import { checkIfMyTurn } from './turn-module.js';
+import { updateTokensPosition, renderTokens } from './render-tokens.js';
 // TODO Add can game start to update
 // TODO Hide dice button when dice !== 0
 // TODO Clean files, add jsdoc
-// TODO Test if game can be won
 // TODO Put module in classes with static
 /**
  * Getting information about player's room
@@ -33,14 +33,23 @@ function updatePage() {
         .then(() => {
         // Render players boxes
         renderPlayers(JSON.parse(info).players);
-        console.log(JSON.parse(info).hasGameStarted);
         // Check if game has started
         if (JSON.parse(info).hasGameStarted) {
             // Hide the ready switch
             document.getElementById('ready-row').classList.add('d-none');
             document.getElementById('game-row').classList.remove('d-none');
-            checkIfMyTurn()
-                .then((response) => {
+            if (document.getElementsByClassName('player-token').length === 0) {
+                console.log(document.getElementsByClassName('player-token'));
+                renderTokens(JSON.parse(info).players);
+                console.log('renderTokens');
+            }
+            if (!document.getElementById('ghost') &&
+                document.getElementsByClassName('player-token').length !== 0 &&
+                document.getElementsByClassName('opponent-token').length !== 0) {
+                updateTokensPosition(JSON.parse(info).players);
+                console.log('updateTokensPosition');
+            }
+            checkIfMyTurn().then((response) => {
                 if (response)
                     document.getElementById('dice-row').classList.remove('d-none');
                 else
@@ -50,8 +59,6 @@ function updatePage() {
                 document.getElementById('rolled-number-row').innerText = '';
             else
                 document.getElementById('rolled-number-row').innerText = JSON.parse(info).dice;
-            fetch('/checkIfGameWon', { method: 'POST' })
-                .then((response) => { window.location = response.url; });
         }
     });
 }

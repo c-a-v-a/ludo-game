@@ -4,7 +4,7 @@ import { updatePage } from './update-module.js';
 import { rollTheDice } from './dice-module.js';
 import { createGameBoardTable } from './game-board-table-module.js';
 window.addEventListener('DOMContentLoaded', function () {
-    // Add event to switch 
+    // Add event to switch
     if (document.getElementById('ready-switch'))
         document.getElementById('ready-switch').onchange = checkIfPlayerReady;
     if (document.getElementById('dice-button'))

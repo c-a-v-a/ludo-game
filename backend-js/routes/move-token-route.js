@@ -11,8 +11,7 @@ function moveToken(req, res) {
             if (req.session.playerNick === data.players[data.turn].nick &&
                 req.session.playerColor === data.players[data.turn].color) {
                 const player = data.players[data.turn];
-                if (player.tokens[tokenNumber] === 0 &&
-                    (data.dice === 1 || data.dice === 6)) {
+                if (player.tokens[tokenNumber] === 0 && (data.dice === 1 || data.dice === 6)) {
                     tokenGoOut(data, tokenNumber);
                     console.log('went out');
                 }
@@ -54,7 +53,7 @@ function tokenGoOut(data, tokenNumber) {
 }
 function tokenMove(data, tokenNumber) {
     const player = data.players[data.turn];
-    if (player.tokens[data.turn] + data.dice > 40)
+    if (player.tokens[tokenNumber] + data.dice > 40)
         player.tokens.set(tokenNumber, player.tokens[tokenNumber] + data.dice - 40);
     else
         player.tokens.set(tokenNumber, player.tokens[tokenNumber] + data.dice);
@@ -63,7 +62,7 @@ function tokenMove(data, tokenNumber) {
 function tokenCapture(data, square, nick, color) {
     for (let player of data.players) {
         if (player.nick !== nick || player.color !== color) {
-            for (let i = 0; i < player.tokens.length - 1; i++) {
+            for (let i = 0; i < player.tokens.length; i++) {
                 if (player.tokens[i] === square)
                     player.tokens.set(i, 0);
             }
@@ -78,7 +77,7 @@ function tokenLastMove(data, tokenNumber) {
     let goal = player.goal - 1;
     if (goal === 0)
         goal += 40;
-    const tokenHouse = data.dice - (goal - player.tokens[tokenNumber]) - 1;
+    const tokenHouse = data.dice - (goal - player.tokens[tokenNumber]);
     if (player.house[tokenHouse] === 0) {
         player.house.set(tokenHouse, 1);
         player.tokens.set(tokenNumber, player.goal * 100 + tokenHouse);
@@ -92,8 +91,7 @@ function checkIfLastMove(data, tokenNumber) {
     let goal = player.goal - 1;
     if (goal === 0)
         goal += 40;
-    if (player.tokens[tokenNumber] < goal &&
-        player.tokens[tokenNumber] + data.dice > goal)
+    if (player.tokens[tokenNumber] < goal && player.tokens[tokenNumber] + data.dice > goal)
         return true;
     else
         return false;
