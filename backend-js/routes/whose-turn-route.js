@@ -10,8 +10,9 @@ const room_model_1 = require("../models/room-model");
 function whoseTurn(req, res) {
     room_model_1.Room.findById(req.session.playerId, (error, data) => {
         if (error)
-            console.log(error);
-        if (data.players[data.turn].nick === req.session.playerNick && data.players[data.turn].color === req.session.playerColor)
+            console.error(error);
+        if (data.players[data.turn].nick === req.session.playerNick &&
+            data.players[data.turn].color === req.session.playerColor)
             res.json({ myTurn: true });
         else
             res.json({ myTurn: false });

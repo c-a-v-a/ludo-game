@@ -1,5 +1,5 @@
 // * Dice module for room.ts
-import { updatePage } from './update-module';
+import { updatePage } from './update-module.js';
 
 /**
  * Function that rolls the dice

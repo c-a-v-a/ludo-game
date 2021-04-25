@@ -72,7 +72,6 @@ async function createNewRoom(req, res) {
         default:
             break;
     }
-    // TODO? Add turn by color?
     // Creating model object that will be inserted to mongodb
     const room = new room_model_js_1.Room({
         _id: id,
@@ -99,12 +98,8 @@ async function createNewRoom(req, res) {
     // Inserting room object to mongodb
     room
         .save()
-        .then((results) => {
-        console.log('saved to db');
-    })
-        .catch((err) => {
-        console.log(err);
-    });
+        .then((results) => { })
+        .catch((err) => { });
     // Saving player info to player session
     req.session.playerNick = playerNick;
     req.session.playerId = id;
@@ -178,7 +173,7 @@ async function addPlayerToRoom(req, res, doc) {
     // Save update in db
     doc
         .save()
-        .then(() => console.log('added player to room'))
+        .then()
         .catch((err) => console.error(err));
     // Save player info to session
     req.session.playerNick = playerNick;

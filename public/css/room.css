@@ -53,3 +53,37 @@
   animation-duration: 2s;
   animation-iteration-count: infinite;
 }
+
+.dice-image {
+  width: 50px;
+  height: 50px;
+  margin: 0;
+  padding: 0;
+}
+
+.player-pill {
+  width: 100%;
+  height: 50px;
+  max-width: 150px;
+  border-radius: 5px;
+  border: 1px solid #fff;
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+}
+
+.player-red {
+  background: crimson;
+}
+
+.player-blue {
+  background: deepskyblue;
+}
+
+.player-green {
+  background: lawngreen;
+}
+
+.player-yellow {
+  background: gold;
+}

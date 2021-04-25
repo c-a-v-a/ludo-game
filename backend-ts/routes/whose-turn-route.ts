@@ -1,6 +1,6 @@
 // * Module for /whoseTurn route.
 import { Request, Response } from 'express';
-import { Room } from '../models/room-model'
+import { Room } from '../models/room-model';
 
 /**
  * Function that check if its player turn
@@ -8,14 +8,15 @@ import { Room } from '../models/room-model'
  * @param res {Response} - express response object
  */
 function whoseTurn(req: Request, res: Response) {
-  Room.findById((req.session as any).playerId, (error: any, data:any) => {
-    if (error)
-      console.log(error);
+  Room.findById((req.session as any).playerId, (error: any, data: any) => {
+    if (error) console.error(error);
 
-    if (data.players[data.turn].nick === (req.session as any).playerNick && data.players[data.turn].color === (req.session as any).playerColor)
+    if (
+      data.players[data.turn].nick === (req.session as any).playerNick &&
+      data.players[data.turn].color === (req.session as any).playerColor
+    )
       res.json({ myTurn: true });
-    else
-      res.json({ myTurn: false });
+    else res.json({ myTurn: false });
   });
 }
 

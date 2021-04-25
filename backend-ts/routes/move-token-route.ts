@@ -16,9 +16,7 @@ function moveToken(req: Request, res: Response) {
 
         if (player.tokens[tokenNumber] === 0 && (data.dice === 1 || data.dice === 6)) {
           tokenGoOut(data, tokenNumber);
-          console.log('went out');
         } else if (player.tokens[tokenNumber] === 0) {
-          console.log('cant go out');
         } else if (player.tokens[tokenNumber] > 100) {
           tokenMoveInHouse(data, tokenNumber);
         } else if (checkIfLastMove(data, tokenNumber)) {
@@ -27,7 +25,7 @@ function moveToken(req: Request, res: Response) {
           tokenMove(data, tokenNumber);
           res.send('moved');
         }
-        console.log(player.tokens[tokenNumber]);
+
         if (player.tokens[tokenNumber] !== 0) {
           tokenCapture(
             data,
@@ -45,7 +43,7 @@ function moveToken(req: Request, res: Response) {
 
         data.save();
       } else {
-        console.log('not ur turn');
+        res.end();
       }
     }
   });
@@ -53,9 +51,7 @@ function moveToken(req: Request, res: Response) {
 
 function tokenGoOut(data: any, tokenNumber: number) {
   data.players[data.turn].tokens.set(tokenNumber, data.players[data.turn].goal);
-  console.log(data.players[data.turn]);
-
-  data.players[data.turn].tokens[tokenNumber] = data.players[data.turn].goal;
+  // data.players[data.turn].tokens[tokenNumber] = data.players[data.turn].goal;
 }
 
 function tokenMove(data: any, tokenNumber: number) {
@@ -64,8 +60,6 @@ function tokenMove(data: any, tokenNumber: number) {
   if (player.tokens[tokenNumber] + data.dice > 40)
     player.tokens.set(tokenNumber, player.tokens[tokenNumber] + data.dice - 40);
   else player.tokens.set(tokenNumber, player.tokens[tokenNumber] + data.dice);
-
-  console.log(player);
 }
 
 function tokenCapture(data: any, square: number, nick: string, color: string) {
@@ -91,9 +85,8 @@ function tokenLastMove(data: any, tokenNumber: number) {
   if (player.house[tokenHouse] === 0) {
     player.house.set(tokenHouse, 1);
     player.tokens.set(tokenNumber, player.goal * 100 + tokenHouse);
-
-    console.log('moved to house');
-  } else console.log('cant move');
+  }
+  console.log(player, data.dice);
 }
 
 function checkIfLastMove(data: any, tokenNumber: number): boolean {
@@ -102,7 +95,7 @@ function checkIfLastMove(data: any, tokenNumber: number): boolean {
 
   if (goal === 0) goal += 40;
 
-  if (player.tokens[tokenNumber] < goal && player.tokens[tokenNumber] + data.dice > goal)
+  if (player.tokens[tokenNumber] <= goal && player.tokens[tokenNumber] + data.dice > goal)
     return true;
   else return false;
 }
@@ -115,9 +108,9 @@ function tokenMoveInHouse(data: any, tokenNumber: number) {
     player.house.set(tokenHouseId, 0);
     player.house.set(tokenHouseId + data.dice, 1);
     player.tokens.set(tokenNumber, player.tokens[tokenNumber] + data.dice);
+  }
 
-    console.log('moved in house');
-  } else console.log('cant move in house');
+  console.log(player, data.dice);
 }
 
 export { moveToken };

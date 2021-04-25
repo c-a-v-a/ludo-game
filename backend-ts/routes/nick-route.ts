@@ -99,12 +99,8 @@ async function createNewRoom(req: Request, res: Response) {
   // Inserting room object to mongodb
   room
     .save()
-    .then((results) => {
-      console.log('saved to db');
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+    .then((results) => {})
+    .catch((err) => {});
 
   // Saving player info to player session
   (req.session as any).playerNick = playerNick;
@@ -186,7 +182,7 @@ async function addPlayerToRoom(req: Request, res: Response, doc: mongoose.Docume
   // Save update in db
   doc
     .save()
-    .then(() => console.log('added player to room'))
+    .then()
     .catch((err) => console.error(err));
 
   // Save player info to session

@@ -27,8 +27,7 @@ class PlayerToken {
 
     if (this.position === 0)
       realPosition = (boardPositions[this.position] as any)[this.goal * -100 - this.tokenIndex];
-    else if (this.position > 40)
-      realPosition = (boardPositions[41] as any)[this.goal * 100 + this.tokenIndex];
+    else if (this.position > 40) realPosition = (boardPositions[41] as any)[this.position];
     else realPosition = boardPositions[this.position];
 
     this.htmlElement.style.width = '30px';
@@ -70,8 +69,7 @@ class PlayerToken {
 
     if (this.position === 0)
       realPosition = (boardPositions[this.position] as any)[this.goal * -100 - this.tokenIndex];
-    else if (this.position > 40)
-      realPosition = (boardPositions[41] as any)[this.goal * 100 + this.tokenIndex];
+    else if (this.position > 40) realPosition = (boardPositions[41] as any)[this.position];
     else realPosition = boardPositions[this.position];
 
     this.gameBoard.children[realPosition.x].children[realPosition.y].appendChild(
@@ -84,8 +82,7 @@ class PlayerToken {
 
     if (this.position === 0)
       realPosition = (boardPositions[this.position] as any)[this.goal * -100 - this.tokenIndex];
-    else if (this.position > 40)
-      realPosition = (boardPositions[41] as any)[this.goal * 100 + this.tokenIndex];
+    else if (this.position > 40) realPosition = (boardPositions[41] as any)[this.position];
     else realPosition = boardPositions[this.position];
 
     this.gameBoard.children[realPosition.x].children[realPosition.y].removeChild(
@@ -133,23 +130,6 @@ class PlayerToken {
 
     this.gameBoard.children[realPosition.x].children[realPosition.y].appendChild(ghost);
   }
-
-  // moveToken() {
-  //   if (document.getElementById('ghost')) document.getElementById('ghost')?.remove();
-
-  //   fetch('/moveToken', { method: 'POST' }).then(() => updatePage());
-  // }
-
-  // resetOnClick() {
-  //   let playerTokens = document.getElementsByClassName('player-token');
-
-  //   for (let i = 0; i < playerTokens.length; i++) {
-  //     if ((playerTokens[i] as HTMLElement).id !== `${this.color}-${this.tokenIndex}`) {
-  //       (playerTokens[i] as HTMLElement).onclick = this.displayGhost;
-  //       console.log('reset');
-  //     }
-  //   }
-  // }
 }
 
 export { PlayerToken };

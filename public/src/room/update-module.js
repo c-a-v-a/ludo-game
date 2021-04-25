@@ -1,9 +1,9 @@
 // * Update module for room.js
-import { renderPlayers } from './render-module.js';
+import { renderPlayers } from './render-player-boxes-module.js';
 import { checkIfMyTurn } from './turn-module.js';
 import { updateTokensPosition, renderTokens } from './render-tokens.js';
+import { diceRollRender } from './dice-roll-render-module.js';
 // TODO Add can game start to update
-// TODO Hide dice button when dice !== 0
 // TODO Clean files, add jsdoc
 // TODO Put module in classes with static
 // TODO Add timers
@@ -61,7 +61,7 @@ function updatePage() {
             if (JSON.parse(info).dice === 0)
                 document.getElementById('rolled-number-row').innerText = '';
             else
-                document.getElementById('rolled-number-row').innerText = JSON.parse(info).dice;
+                diceRollRender(JSON.parse(info).dice);
         }
     });
 }

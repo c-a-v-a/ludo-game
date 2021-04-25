@@ -1,5 +1,7 @@
 // * Module that checks if player is ready for game
+
 import { updatePage } from './update-module.js';
+
 /**
  * Function that check if player is ready for game
  * @returns {boolean} - true if player is ready
@@ -9,22 +11,20 @@ function checkIfPlayerReady() {
   let options = {
     method: 'POST',
     headers: {
-      "Content-Type": "application/json"
+      'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ ready: true}),
-  }
+    body: JSON.stringify({ ready: true }),
+  };
 
   // Sending data to server
   if (readySwitch.checked) {
     fetch('/changePlayerState', options)
       .then()
       .catch((err) => console.error(err));
-  }
-  else {
+  } else {
     options.body = JSON.stringify({ ready: false });
-
     fetch('/changePlayerState', options)
-      .then()
+      .then(updatePage)
       .catch((err) => console.error(err));
   }
 }

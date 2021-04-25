@@ -37,56 +37,79 @@ function checkIfPlayerCanMove(data: any, res: Response, diceRoll: number) {
   for (let i = 0; i < player.tokens.length; i++) {
     if (player.tokens[i] === 0 && (data.dice === 1 || data.dice === 6)) {
       canMove = true;
+      console.log('1d');
       break;
     } else if (player.tokens[i] === 0) {
       canMove = false;
+      console.log('2d');
     } else if (player.tokens[i] > 100) {
-      tokenMoveInHouse(data, i, res, canMove);
+      if (tokenMoveInHouse(data, i, canMove, diceRoll)) {
+        canMove = true;
+        break;
+      }
+      console.log('3d');
       if (canMove) break;
-    } else if (checkIfLastMove(data, i)) {
-      tokenLastMove(data, i, res, canMove);
-      if (canMove) break;
+    } else if (checkIfLastMove(data, i, diceRoll)) {
+      if (tokenLastMove(data, i, canMove, diceRoll)) {
+        canMove = true;
+        break;
+      }
+      console.log('4d');
+      // if (canMove) break;
     } else {
       canMove = true;
+      console.log('5d');
       break;
     }
   }
-
+  console.log(canMove);
   if (!canMove) {
     if (data.turn >= data.players.length - 1) data.turn = 0;
     else data.turn++;
+
+    data.dice = 0;
   }
 
   res.json({ canMove: canMove });
 }
 
-function tokenLastMove(data: any, tokenNumber: number, res: Response, canMove: boolean) {
+function tokenLastMove(data: any, tokenNumber: number, canMove: boolean, diceRoll: number) {
   const player = data.players[data.turn];
   let goal = player.goal - 1;
 
   if (goal === 0) goal += 40;
 
-  const tokenHouse = data.dice - (goal - player.tokens[tokenNumber]) - 1;
+  const tokenHouse = diceRoll - (goal - player.tokens[tokenNumber]) - 1;
 
-  canMove = player.house[tokenHouse] === 0 ? true : false;
+  // canMove = player.house[tokenHouse] === 0 ? true : false;
+
+  if (player.house[tokenHouse] === 0) return true;
+  else return false;
+
+  // console.log(player, goal, tokenHouse, diceRoll, canMove);
 }
 
-function checkIfLastMove(data: any, tokenNumber: number): boolean {
+function checkIfLastMove(data: any, tokenNumber: number, diceRoll: number): boolean {
   const player = data.players[data.turn];
   let goal = player.goal - 1;
 
   if (goal === 0) goal += 40;
 
-  if (player.tokens[tokenNumber] <= goal && player.tokens[tokenNumber] + data.dice > goal)
+  console.log(player, goal, diceRoll);
+
+  if (player.tokens[tokenNumber] <= goal && player.tokens[tokenNumber] + diceRoll > goal)
     return true;
   else return false;
 }
 
-function tokenMoveInHouse(data: any, tokenNumber: number, res: Response, canMove: boolean) {
+function tokenMoveInHouse(data: any, tokenNumber: number, canMove: boolean, diceRoll: number) {
   const player = data.players[data.turn];
   const tokenHouseId = player.tokens[tokenNumber] - player.goal * 100;
 
-  canMove = player.house[tokenHouseId + data.dice] === 0 ? true : false;
+  canMove = player.house[tokenHouseId + diceRoll] === 0 ? true : false;
+
+  if (player.house[tokenHouseId + diceRoll] === 0) return true;
+  else return false;
 }
 
 export { diceRoll };

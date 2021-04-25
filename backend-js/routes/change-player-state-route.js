@@ -12,14 +12,18 @@ function changePlayerState(req, res) {
         const ready = req.body.ready;
         const nick = req.session.playerNick;
         room_model_1.Room.findById(req.session.playerId, (error, data) => {
+            if (data.hasGameStarted)
+                return;
             let players = data.players;
             for (let player of players) {
-                if (player.nick === req.session.playerNick && player.color === req.session.playerColor) {
+                if (player.nick === req.session.playerNick &&
+                    player.color === req.session.playerColor) {
                     player.ready = ready;
                 }
             }
             data.players = players;
-            data.save()
+            data
+                .save()
                 .then(res.redirect(308, '/canGameStart'))
                 .catch((err) => console.log(err));
         });

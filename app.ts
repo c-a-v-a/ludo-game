@@ -20,8 +20,6 @@ import { moveToken } from './backend-js/routes/move-token-route.js';
 // @ts-ignore
 import { ghostToken } from './backend-js/routes/ghost-token-route.js';
 // @ts-ignore
-import { checkIfCanMove } from './backend-js/routes/check-if-can-move-route.js';
-// @ts-ignore
 import { checkIfGameWon } from './backend-js/routes/check-if-game-won-route.js';
 // @ts-ignore
 import { skipPlayerTurn } from './backend-js/routes/skip-turn-route.js';
