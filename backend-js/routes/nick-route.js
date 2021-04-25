@@ -20,19 +20,16 @@ function nickRouteFunction(req, res) {
         .then((doc) => {
         if (doc) {
             // If room is found
-            addPlayerToRoom(req, res, doc)
-                .then(() => res.redirect('/room'));
+            addPlayerToRoom(req, res, doc).then(() => res.redirect('/room'));
         }
         else {
             // If no room was found
-            createNewRoom(req, res)
-                .then(() => res.redirect('/room'));
+            createNewRoom(req, res).then(() => res.redirect('/room'));
         }
     })
         .catch((err) => console.error(err));
 }
 exports.nickRouteFunction = nickRouteFunction;
-;
 /**
  * Creating new room, when no existing room is found
  * @param req { Request } - request object from express
@@ -92,6 +89,7 @@ async function createNewRoom(req, res) {
         ],
         availableColors: colors,
         turn: 0,
+        turnStartTime: 0,
         dice: 0,
         winner: {
             nick: 'none',
@@ -99,9 +97,14 @@ async function createNewRoom(req, res) {
         },
     });
     // Inserting room object to mongodb
-    room.save()
-        .then((results) => { console.log('saved to db'); })
-        .catch((err) => { console.log(err); });
+    room
+        .save()
+        .then((results) => {
+        console.log('saved to db');
+    })
+        .catch((err) => {
+        console.log(err);
+    });
     // Saving player info to player session
     req.session.playerNick = playerNick;
     req.session.playerId = id;
@@ -173,7 +176,8 @@ async function addPlayerToRoom(req, res, doc) {
     doc.players = players;
     doc.availableColors = availableColors;
     // Save update in db
-    doc.save()
+    doc
+        .save()
         .then(() => console.log('added player to room'))
         .catch((err) => console.error(err));
     // Save player info to session
@@ -181,4 +185,3 @@ async function addPlayerToRoom(req, res, doc) {
     req.session.playerId = id;
     req.session.playerColor = playerColor;
 }
-;

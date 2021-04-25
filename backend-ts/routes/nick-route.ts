@@ -5,11 +5,10 @@ import { Room } from '../models/room-model.js';
 // ! Used @ts-ignore because of module error, works fine for now.
 // @ts-ignore
 import { randomInteger } from '../../helper-functions/js/helper-functions.js';
-import { NONAME } from 'node:dns';
 
 /**
- * Function for /nick POST request 
- * @param req { Request } - request object from express 
+ * Function for /nick POST request
+ * @param req { Request } - request object from express
  * @param res { Response } - response object from express
  */
 function nickRouteFunction(req: Request, res: Response) {
@@ -18,25 +17,22 @@ function nickRouteFunction(req: Request, res: Response) {
     .then((doc) => {
       if (doc) {
         // If room is found
-        addPlayerToRoom(req, res, doc)
-          .then(() => res.redirect('/room'));
-      }
-      else {
+        addPlayerToRoom(req, res, doc).then(() => res.redirect('/room'));
+      } else {
         // If no room was found
-        createNewRoom(req, res)
-          .then(() => res.redirect('/room'));
+        createNewRoom(req, res).then(() => res.redirect('/room'));
       }
     })
     .catch((err) => console.error(err));
-};
+}
 
 /**
  * Creating new room, when no existing room is found
- * @param req { Request } - request object from express 
+ * @param req { Request } - request object from express
  * @param res { Response } - response object from express
  */
-async function createNewRoom(req: Request, res: Response){
-  const playerNick: string = req.body.nick; 
+async function createNewRoom(req: Request, res: Response) {
+  const playerNick: string = req.body.nick;
   const id = mongoose.Types.ObjectId();
   const tokens = [0, 0, 0, 0];
   let colors: Array<string> = [];
@@ -46,8 +42,7 @@ async function createNewRoom(req: Request, res: Response){
   // Creating color array
   if (process.env.COLORS_ARRAY) {
     colors = process.env.COLORS_ARRAY.split(',');
-  }
-  else {
+  } else {
     console.error('Could not find COLORS_ARRAY in environment variables');
     return;
   }
@@ -77,12 +72,11 @@ async function createNewRoom(req: Request, res: Response){
       break;
   }
 
-  // TODO? Add turn by color?
   // Creating model object that will be inserted to mongodb
   const room = new Room({
     _id: id,
     hasGameStarted: false,
-    players: [ 
+    players: [
       {
         nick: playerNick,
         color: playerColor,
@@ -94,6 +88,7 @@ async function createNewRoom(req: Request, res: Response){
     ],
     availableColors: colors,
     turn: 0,
+    turnStartTime: 0,
     dice: 0,
     winner: {
       nick: 'none',
@@ -102,9 +97,14 @@ async function createNewRoom(req: Request, res: Response){
   });
 
   // Inserting room object to mongodb
-  room.save()
-    .then((results) => { console.log('saved to db'); })
-    .catch((err) => {console.log(err); });
+  room
+    .save()
+    .then((results) => {
+      console.log('saved to db');
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 
   // Saving player info to player session
   (req.session as any).playerNick = playerNick;
@@ -114,12 +114,12 @@ async function createNewRoom(req: Request, res: Response){
 
 /**
  * Adding player to room, when existing room is found
- * @param req { Request } - request object from express 
+ * @param req { Request } - request object from express
  * @param res { Response } - response object from express
  * @returns { Object | null } - returns object with players information, that will be saved to session
  */
 async function addPlayerToRoom(req: Request, res: Response, doc: mongoose.Document) {
-  const existingRoom = (doc as any);
+  const existingRoom = doc as any;
   const id = existingRoom._id;
   const playerNick: string = req.body.nick;
   const tokens = [0, 0, 0, 0];
@@ -134,8 +134,7 @@ async function addPlayerToRoom(req: Request, res: Response, doc: mongoose.Docume
 
     playerColor = availableColors[colorIndex];
     availableColors.splice(colorIndex, 1);
-  }
-  else {
+  } else {
     // Error msg
     console.error('Could not find color array in db record');
     return;
@@ -167,11 +166,10 @@ async function addPlayerToRoom(req: Request, res: Response, doc: mongoose.Docume
       tokens: tokens,
       goal: goal,
       house: tokens,
-    }
+    };
 
     players.push(player);
-  }
-  else {
+  } else {
     // Error msg
     console.error('Could not find players array id db record');
   }
@@ -186,7 +184,8 @@ async function addPlayerToRoom(req: Request, res: Response, doc: mongoose.Docume
   (doc as any).availableColors = availableColors;
 
   // Save update in db
-  doc.save()
+  doc
+    .save()
     .then(() => console.log('added player to room'))
     .catch((err) => console.error(err));
 
@@ -194,6 +193,6 @@ async function addPlayerToRoom(req: Request, res: Response, doc: mongoose.Docume
   (req.session as any).playerNick = playerNick;
   (req.session as any).playerId = id;
   (req.session as any).playerColor = playerColor;
-};
+}
 
 export { nickRouteFunction };

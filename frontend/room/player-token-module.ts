@@ -49,7 +49,7 @@ class PlayerToken {
         .then(async (data) => {
           if (data.canMove) {
             await moveToken(this.tokenIndex);
-            updatePage();
+            this.updatePosition(data.position);
           }
         });
     };

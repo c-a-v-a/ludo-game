@@ -33,6 +33,7 @@ function moveToken(req, res) {
                     tokenCapture(data, player.tokens[tokenNumber], req.session.playerNick, req.session.playerColor);
                 }
                 data.dice = 0;
+                data.turnStartTime = Date.now();
                 if (data.turn >= data.players.length - 1)
                     data.turn = 0;
                 else
@@ -69,7 +70,6 @@ function tokenCapture(data, square, nick, color) {
         }
     }
 }
-// TODO Create board (table) and player (class) render
 // TODO Add player timeout
 // TODO Add speech synthesis
 function tokenLastMove(data, tokenNumber) {
@@ -77,7 +77,7 @@ function tokenLastMove(data, tokenNumber) {
     let goal = player.goal - 1;
     if (goal === 0)
         goal += 40;
-    const tokenHouse = data.dice - (goal - player.tokens[tokenNumber]);
+    const tokenHouse = data.dice - (goal - player.tokens[tokenNumber]) - 1;
     if (player.house[tokenHouse] === 0) {
         player.house.set(tokenHouse, 1);
         player.tokens.set(tokenNumber, player.goal * 100 + tokenHouse);

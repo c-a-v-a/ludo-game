@@ -13,27 +13,31 @@ const Schema = mongoose.Schema;
 // turn - whose turn
 // dice - last dice roll or zero
 // openColors - array of not chosen colors in this room
-const roomSchema = new Schema({
-  _id: Schema.Types.ObjectId,
-  hasGameStarted: Boolean,
-  players: [
-    {
+const roomSchema = new Schema(
+  {
+    _id: Schema.Types.ObjectId,
+    hasGameStarted: Boolean,
+    players: [
+      {
+        nick: String,
+        color: String,
+        ready: Boolean,
+        tokens: [Number],
+        goal: Number,
+        house: [Number],
+      },
+    ],
+    availableColors: [String],
+    turn: Number,
+    turnStartTime: Number,
+    dice: Number,
+    winner: {
       nick: String,
       color: String,
-      ready: Boolean,
-      tokens: [ Number ],
-      goal: Number,
-      house: [ Number ],
     },
-  ],
-  availableColors: [ String ],
-  turn: Number,
-  dice: Number,
-  winner: {
-    nick: String,
-    color: String,
-  }
-}, { timestamps: true, });
+  },
+  { timestamps: true }
+);
 
 // * Creating model
 const Room = mongoose.model('room', roomSchema);

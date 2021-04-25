@@ -2,10 +2,11 @@
 import { renderPlayers } from './render-module.js';
 import { checkIfMyTurn } from './turn-module.js';
 import { updateTokensPosition, renderTokens } from './render-tokens.js';
+import { renderTime, clearTimers } from './player-turn-time-module.js';
 // TODO Add can game start to update
-// TODO Hide dice button when dice !== 0
 // TODO Clean files, add jsdoc
 // TODO Put module in classes with static
+// TODO Add timers
 /**
  * Getting information about player's room
  */
@@ -43,9 +44,7 @@ function updatePage() {
         document.getElementById('game-row')!.classList.remove('d-none');
 
         if (document.getElementsByClassName('player-token').length === 0) {
-          console.log(document.getElementsByClassName('player-token'));
           renderTokens(JSON.parse(info).players);
-          console.log('renderTokens');
         }
 
         if (
@@ -54,11 +53,17 @@ function updatePage() {
           document.getElementsByClassName('opponent-token').length !== 0
         ) {
           updateTokensPosition(JSON.parse(info).players);
-          console.log('updateTokensPosition');
         }
 
+        fetch('/skipTurn', { method: 'POST' })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.skipped) document.getElementById('dice-row')?.classList.add('d-none');
+          });
+
         checkIfMyTurn().then((response) => {
-          if (response) document.getElementById('dice-row')!.classList.remove('d-none');
+          if (response && JSON.parse(info).dice === 0)
+            document.getElementById('dice-row')!.classList.remove('d-none');
           else document.getElementById('dice-row')!.classList.add('d-none');
         });
 

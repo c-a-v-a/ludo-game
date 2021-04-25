@@ -14,4 +14,5 @@ window.addEventListener('DOMContentLoaded', function () {
     setInterval(updatePage, 3000);
 });
 // TODO Clean up/add comments
-// TODO Add UI looks
+// TODO Add player boxes
+// TODO Add dice graphics

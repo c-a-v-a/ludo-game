@@ -22,10 +22,11 @@ function canGameStart(req, res) {
                     break;
                 }
             }
-            if (isEveryoneReady)
+            if (isEveryoneReady) {
                 data.hasGameStarted = true;
-            data.save()
-                .catch((error) => console.log(error));
+                data.turnStartTime = Date.now();
+            }
+            data.save().catch((error) => console.log(error));
         });
     }
     res.end();

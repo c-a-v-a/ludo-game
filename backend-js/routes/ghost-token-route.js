@@ -61,7 +61,7 @@ function tokenLastMove(data, tokenNumber, res) {
     let goal = player.goal - 1;
     if (goal === 0)
         goal += 40;
-    const tokenHouse = data.dice - (goal - player.tokens[tokenNumber]);
+    const tokenHouse = data.dice - (goal - player.tokens[tokenNumber]) - 1;
     if (player.house[tokenHouse] === 0) {
         res.json({ canMove: true, position: player.goal * 100 + tokenHouse });
         console.log('moved to house');

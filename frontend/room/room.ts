@@ -3,7 +3,6 @@ import { checkIfPlayerReady } from './ready-module.js';
 import { updatePage } from './update-module.js';
 import { rollTheDice } from './dice-module.js';
 import { createGameBoardTable } from './game-board-table-module.js';
-import { renderTokens } from './render-tokens.js';
 
 window.addEventListener('DOMContentLoaded', function () {
   // Add event to switch

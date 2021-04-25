@@ -23,6 +23,8 @@ import { ghostToken } from './backend-js/routes/ghost-token-route.js';
 import { checkIfCanMove } from './backend-js/routes/check-if-can-move-route.js';
 // @ts-ignore
 import { checkIfGameWon } from './backend-js/routes/check-if-game-won-route.js';
+// @ts-ignore
+import { skipPlayerTurn } from './backend-js/routes/skip-turn-route.js';
 
 require('dotenv').config();
 
@@ -114,12 +116,11 @@ app.post('/moveToken', moveToken);
 // Route for displaying 'ghost tokens'
 app.post('/ghostToken', ghostToken);
 
-// Route for checking if player can move
-app.post('/checkIfCanMove', checkIfCanMove);
-
 // Route for checking if game is won
 app.post('/checkIfGameWon', checkIfGameWon);
 
 app.post('/whoAmI', (req, res) => {
   res.json({ nick: (req.session as any).playerNick, color: (req.session as any).playerColor });
 });
+
+app.post('/skipTurn', skipPlayerTurn);

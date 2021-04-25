@@ -11,28 +11,41 @@ function checkIfCanMove(req: Request, res: Response) {
         (req.session as any).playerColor === data.players[data.turn].color
       ) {
         const player = data.players[data.turn];
+        let canMove = false;
 
         for (let tokenNumber = 0; tokenNumber < player.tokens.length; tokenNumber++) {
           if (player.tokens[tokenNumber] === 0 && (data.dice === 1 || data.dice === 6)) {
-            res.json({ canMove: true });
+            canMove = true;
+            break;
           } else if (player.tokens[tokenNumber] === 0) {
-            res.json({ canMove: false });
+            canMove = false;
           } else if (player.tokens[tokenNumber] > 100) {
-            tokenMoveInHouse(data, tokenNumber, res);
+            tokenMoveInHouse(data, tokenNumber, res, canMove);
+            if (canMove) break;
           } else if (checkIfLastMove(data, tokenNumber)) {
-            tokenLastMove(data, tokenNumber, res);
+            tokenLastMove(data, tokenNumber, res, canMove);
+            if (canMove) break;
           } else {
-            res.json({ canMove: true });
+            canMove = true;
+            break;
           }
         }
-      } else {
-        console.log('not ur turn');
+
+        if (canMove === false) {
+          if (data.turn >= data.players.length - 1) data.turn = 0;
+          else data.turn++;
+
+          data.turnStartTime = Date.now();
+          data.dice = 0;
+
+          data.save();
+        }
       }
     }
   });
 }
 
-function tokenLastMove(data: any, tokenNumber: number, res: Response) {
+function tokenLastMove(data: any, tokenNumber: number, res: Response, canMove: boolean) {
   const player = data.players[data.turn];
   let goal = player.goal - 1;
 
@@ -41,8 +54,8 @@ function tokenLastMove(data: any, tokenNumber: number, res: Response) {
   const tokenHouse = data.dice - (goal - player.tokens[tokenNumber]) - 1;
 
   if (player.house[tokenHouse] === 0) {
-    res.json({ canMove: true });
-  } else res.json({ canMove: false });
+    canMove = true;
+  } else canMove = false;
 }
 
 function checkIfLastMove(data: any, tokenNumber: number): boolean {
@@ -56,13 +69,13 @@ function checkIfLastMove(data: any, tokenNumber: number): boolean {
   else return false;
 }
 
-function tokenMoveInHouse(data: any, tokenNumber: number, res: Response) {
+function tokenMoveInHouse(data: any, tokenNumber: number, res: Response, canMove: boolean) {
   const player = data.players[data.turn];
   const tokenHouseId = player.tokens[tokenNumber] - player.goal * 100;
 
   if (player.house[tokenHouseId + data.dice] === 0) {
-    res.json({ canMove: true });
-  } else res.json({ canMove: false });
+    canMove = true;
+  } else canMove = false;
 }
 
 export { checkIfCanMove };

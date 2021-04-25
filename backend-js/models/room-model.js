@@ -33,12 +33,13 @@ const roomSchema = new Schema({
     ],
     availableColors: [String],
     turn: Number,
+    turnStartTime: Number,
     dice: Number,
     winner: {
         nick: String,
         color: String,
-    }
-}, { timestamps: true, });
+    },
+}, { timestamps: true });
 // * Creating model
 const Room = mongoose_1.default.model('room', roomSchema);
 exports.Room = Room;
