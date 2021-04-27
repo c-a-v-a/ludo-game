@@ -70,7 +70,7 @@ function checkIfPlayerCanMove(data: any, res: Response, diceRoll: number) {
     data.dice = 0;
   }
 
-  res.json({ canMove: canMove });
+  res.json({ canMove: canMove, rolled: diceRoll });
 }
 
 function tokenLastMove(data: any, tokenNumber: number, canMove: boolean, diceRoll: number) {
@@ -106,7 +106,7 @@ function tokenMoveInHouse(data: any, tokenNumber: number, canMove: boolean, dice
   const player = data.players[data.turn];
   const tokenHouseId = player.tokens[tokenNumber] - player.goal * 100;
 
-  canMove = player.house[tokenHouseId + diceRoll] === 0 ? true : false;
+  // canMove = player.house[tokenHouseId + diceRoll] === 0 ? true : false;
 
   if (player.house[tokenHouseId + diceRoll] === 0) return true;
   else return false;

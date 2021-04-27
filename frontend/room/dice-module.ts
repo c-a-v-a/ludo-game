@@ -1,5 +1,6 @@
 // * Dice module for room.ts
 import { updatePage } from './update-module.js';
+import { diceRollRender } from './dice-roll-render-module.js';
 
 /**
  * Function that rolls the dice
@@ -10,8 +11,11 @@ function rollTheDice() {
   fetch('/diceRoll', { method: 'POST' })
     .then((response) => response.json())
     .then((data) => {
-      updatePage();
-      if (data.canMove === false) window.alert('You have no possible moves. Skipping your turn.');
+      diceRollRender(data.rolled);
+
+      setTimeout(() => {
+        if (data.canMove === false) window.alert('You have no possible moves. Skipping your turn.');
+      }, 1500);
     });
 }
 

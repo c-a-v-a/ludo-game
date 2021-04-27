@@ -85,9 +85,9 @@ app.get('/looser', (req, res) => {
 });
 
 // Game didn't finish route
-app.get('/notFinished', (req, res) => {
-  res.sendFile(path.join(__dirname, './public/views', 'not-finished.html'));
-});
+// app.get('/notFinished', (req, res) => {
+//   res.sendFile(path.join(__dirname, './public/views', 'not-finished.html'));
+// });
 
 // * Set up server POST routes
 // Get nick from client

@@ -5,10 +5,10 @@ function checkIfGameWon(req: Request, res: Response) {
   Room.findById((req.session as any).playerId, (error: any, data: any) => {
     if (error) console.error(error);
     else {
-      if (data.players.length === 1) {
-        res.redirect('/notFinished');
-        return;
-      }
+      // if (data.players.length === 1) {
+      //   res.redirect('/notFinished');
+      //   return;
+      // }
 
       for (let player of data.players) {
         let winner: boolean = true;

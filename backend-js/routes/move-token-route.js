@@ -65,7 +65,6 @@ function tokenCapture(data, square, nick, color) {
         }
     }
 }
-// TODO Add player timeout
 // TODO Add speech synthesis
 function tokenLastMove(data, tokenNumber) {
     const player = data.players[data.turn];

@@ -3,6 +3,7 @@ import { renderPlayers } from './render-player-boxes-module.js';
 import { checkIfMyTurn } from './turn-module.js';
 import { updateTokensPosition, renderTokens } from './render-tokens.js';
 import { diceRollRender } from './dice-roll-render-module.js';
+import { timerBadgeRender } from './player-turn-time-module.js';
 // TODO Add can game start to update
 // TODO Clean files, add jsdoc
 // TODO Put module in classes with static
@@ -20,6 +21,7 @@ function getRoomInfo() {
         return data;
     });
 }
+let lastTurn = null;
 /**
  * Function that updates gui
  */
@@ -32,9 +34,21 @@ function updatePage() {
     })
         .then(() => {
         // Render players boxes
-        renderPlayers(JSON.parse(info).players);
+        if (document.getElementById('players-row').children.length < JSON.parse(info).players.length) {
+            console.log('redraw');
+            renderPlayers(JSON.parse(info).players);
+        }
         // Check if game has started
         if (JSON.parse(info).hasGameStarted) {
+            if (lastTurn === null) {
+                lastTurn = JSON.parse(info).turn;
+                document.getElementById('badge')?.remove();
+                timerBadgeRender(JSON.parse(info));
+            }
+            else if (lastTurn !== JSON.parse(info).turn) {
+                document.getElementById('badge')?.remove();
+                timerBadgeRender(JSON.parse(info));
+            }
             // Hide the ready switch
             document.getElementById('ready-row').classList.add('d-none');
             document.getElementById('game-row').classList.remove('d-none');
@@ -62,6 +76,9 @@ function updatePage() {
                 document.getElementById('rolled-number-row').innerText = '';
             else
                 diceRollRender(JSON.parse(info).dice);
+            fetch('/checkIfGameWon', { method: 'POST' }).then((data) => {
+                window.location = data.url;
+            });
         }
     });
 }

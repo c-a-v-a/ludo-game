@@ -19,5 +19,3 @@ window.addEventListener('DOMContentLoaded', function () {
 });
 
 // TODO Clean up/add comments
-// TODO Add player boxes
-// TODO Add dice graphics
