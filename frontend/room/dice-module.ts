@@ -1,5 +1,4 @@
 // * Dice module for room.ts
-import { updatePage } from './update-module.js';
 import { diceRollRender } from './dice-roll-render-module.js';
 
 /**

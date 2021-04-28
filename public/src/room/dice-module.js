@@ -1,3 +1,4 @@
+// * Dice module for room.ts
 import { diceRollRender } from './dice-roll-render-module.js';
 /**
  * Function that rolls the dice

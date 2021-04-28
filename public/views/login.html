@@ -1,44 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="/css/bootstrap.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.css" />
 
-  <!-- My CSS -->
-  <link rel="stylesheet" href="/css/login.css">
+    <!-- My CSS -->
+    <link rel="stylesheet" href="/css/login.css" />
 
-  <title>Ludo Game</title>
-</head>
-<body class='bg-dark'>
-  <!-- User login page -->
-  <div class="container mt-5">
-    <!-- Headline -->
-    <div class="row mt-5">
-      <h1 id="title-header"> Ludo </h1>
+    <title>Ludo Game</title>
+  </head>
+  <body class="bg-dark">
+    <!-- User login page -->
+    <div class="container mt-5">
+      <!-- Headline -->
+      <div class="row mt-5">
+        <h1 id="title-header">Ludo</h1>
+      </div>
+
+      <!-- Nick input field -->
+      <div class="row mt-5">
+        <input
+          type="text"
+          name="player-nick"
+          id="nick-input"
+          class="form-control"
+          placeholder="Player's nick"
+          aria-label="Player's nick"
+        />
+      </div>
+
+      <!-- Submit button -->
+      <div class="row mt-3">
+        <button type="button" class="btn btn-primary" id="submit-button">Join game</button>
+      </div>
+
+      <div class="row mt-3">
+        <select name="language" id="language-selection">
+          <option value="en-US" selected="selected">English</option>
+          <option value="pl-PL">Polish</option>
+          <option value="zh-CN">Chinese</option>
+        </select>
+      </div>
+
+      <!-- My JS -->
+      <script src="./src/login/login.js"></script>
     </div>
-
-    <!-- Nick input field -->
-    <div class="row mt-5">
-      <input 
-        type="text" 
-        name="player-nick" 
-        id="nick-input" 
-        class="form-control" 
-        placeholder="Player's nick" 
-        aria-label="Player's nick"
-      >
-    </div>
-
-    <!-- Submit button -->
-    <div class="row mt-3">
-      <button type="button" class="btn btn-primary" id="submit-button"> Join game </button>
-    </div>
-
-    <!-- My JS -->
-    <script src="./src/login/login.js"></script>
-  </div>
-</body>
+  </body>
 </html>

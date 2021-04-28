@@ -6,6 +6,10 @@ function submitNick() {
   const nickInput = document.getElementById('nick-input') as HTMLInputElement;
   const nick = nickInput?.value;
 
+  window.localStorage.lang = (document.getElementById(
+    'language-selection'
+  ) as HTMLSelectElement).value;
+
   // Checking if nick is empty
   if (nick === '') {
     window.alert('Please enter your nick');
@@ -21,7 +25,7 @@ function submitNick() {
   const options: Object = {
     method: 'POST',
     headers: {
-      "Content-Type": "application/json"
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify(data),
   };

@@ -7,10 +7,10 @@ function checkIfGameWon(req, res) {
         if (error)
             console.error(error);
         else {
-            if (data.players.length === 1) {
-                res.redirect('/notFinished');
-                return;
-            }
+            // if (data.players.length === 1) {
+            //   res.redirect('/notFinished');
+            //   return;
+            // }
             for (let player of data.players) {
                 let winner = true;
                 for (let i = 0; i < player.house.length - 1; i++) {
@@ -28,7 +28,7 @@ function checkIfGameWon(req, res) {
                 if (req.session.playerNick === data.winner.nick &&
                     req.session.playerColor === data.winner.color)
                     res.redirect('/winner');
-                else
+                else if (data.winner.nick !== 'none' && data.winner.color !== 'none')
                     res.redirect('/looser');
             });
         }

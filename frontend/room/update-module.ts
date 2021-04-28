@@ -4,10 +4,8 @@ import { checkIfMyTurn } from './turn-module.js';
 import { updateTokensPosition, renderTokens } from './render-tokens.js';
 import { diceRollRender } from './dice-roll-render-module.js';
 import { timerBadgeRender } from './player-turn-time-module.js';
-// TODO Add can game start to update
 // TODO Clean files, add jsdoc
 // TODO Put module in classes with static
-// TODO Add timers
 /**
  * Getting information about player's room
  */

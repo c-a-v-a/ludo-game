@@ -1,3 +1,5 @@
+import { speakNumber } from './speak-module.js';
+
 function diceRollRender(diceNumber: number) {
   const row = document.getElementById('rolled-number-row');
 
@@ -10,6 +12,8 @@ function diceRollRender(diceNumber: number) {
   diceImg.src = `../images/${diceNumber}.png`;
 
   row?.appendChild(diceImg);
+
+  speakNumber(diceNumber);
 }
 
 export { diceRollRender };

@@ -31,7 +31,8 @@ function checkIfGameWon(req: Request, res: Response) {
           (req.session as any).playerColor === data.winner.color
         )
           res.redirect('/winner');
-        else res.redirect('/looser');
+        else if (data.winner.nick !== 'none' && data.winner.color !== 'none')
+          res.redirect('/looser');
       });
     }
   });

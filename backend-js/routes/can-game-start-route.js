@@ -25,6 +25,9 @@ function canGameStart(req, res) {
             if (isEveryoneReady) {
                 data.hasGameStarted = true;
                 data.turnStartTime = Date.now();
+                for (let player of players) {
+                    player.ready = true;
+                }
             }
             data.save().catch((error) => console.log(error));
         });

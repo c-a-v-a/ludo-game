@@ -80,6 +80,9 @@ function updatePage() {
                 window.location = data.url;
             });
         }
+        else {
+            fetch('/canGameStart', { method: 'POST' });
+        }
     });
 }
 export { updatePage };
