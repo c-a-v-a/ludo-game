@@ -36,10 +36,11 @@ function moveToken(req: Request, res: Response) {
         }
 
         data.dice = 0;
-        data.turnStartTime = Date.now();
 
         if (data.turn >= data.players.length - 1) data.turn = 0;
         else data.turn++;
+
+        data.turnStartTime = Date.now();
 
         data.save();
       } else {

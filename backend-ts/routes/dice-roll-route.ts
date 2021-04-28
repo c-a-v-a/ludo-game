@@ -11,7 +11,8 @@ function diceRoll(req: Request, res: Response) {
 
     if (
       (req.session as any).playerNick !== data.players[data.turn].nick ||
-      (req.session as any).playerColor !== data.players[data.turn].color
+      (req.session as any).playerColor !== data.players[data.turn].color ||
+      data.dice !== 0
     )
       return;
 

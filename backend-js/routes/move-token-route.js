@@ -30,11 +30,11 @@ function moveToken(req, res) {
                     tokenCapture(data, player.tokens[tokenNumber], req.session.playerNick, req.session.playerColor);
                 }
                 data.dice = 0;
-                data.turnStartTime = Date.now();
                 if (data.turn >= data.players.length - 1)
                     data.turn = 0;
                 else
                     data.turn++;
+                data.turnStartTime = Date.now();
                 data.save();
             }
             else {
@@ -65,7 +65,6 @@ function tokenCapture(data, square, nick, color) {
         }
     }
 }
-// TODO Add speech synthesis
 function tokenLastMove(data, tokenNumber) {
     const player = data.players[data.turn];
     let goal = player.goal - 1;

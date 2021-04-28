@@ -15,7 +15,7 @@ class OpponentToken {
         if (this.position === 0)
             realPosition = boardPositions[this.position][this.goal * -100 - this.tokenIndex];
         else if (this.position > 40)
-            realPosition = boardPositions[41][this.goal * 100 + this.tokenIndex];
+            realPosition = boardPositions[41][this.position];
         else
             realPosition = boardPositions[this.position];
         this.htmlElement.style.width = '30px';

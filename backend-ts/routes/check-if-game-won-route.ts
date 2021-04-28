@@ -22,6 +22,7 @@ function checkIfGameWon(req: Request, res: Response) {
             nick: player.nick,
             color: player.color,
           };
+          break;
         }
       }
 
@@ -33,6 +34,7 @@ function checkIfGameWon(req: Request, res: Response) {
           res.redirect('/winner');
         else if (data.winner.nick !== 'none' && data.winner.color !== 'none')
           res.redirect('/looser');
+        else res.end();
       });
     }
   });

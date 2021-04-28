@@ -22,6 +22,7 @@ function checkIfGameWon(req, res) {
                         nick: player.nick,
                         color: player.color,
                     };
+                    break;
                 }
             }
             data.save().then(() => {
@@ -30,6 +31,8 @@ function checkIfGameWon(req, res) {
                     res.redirect('/winner');
                 else if (data.winner.nick !== 'none' && data.winner.color !== 'none')
                     res.redirect('/looser');
+                else
+                    res.end();
             });
         }
     });

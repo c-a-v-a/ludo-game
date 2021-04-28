@@ -10,6 +10,12 @@ function timerBadgeRender(data: any) {
   playerPill?.appendChild(badge);
 
   let interval = setInterval(() => {
+    if (i >= 3000) {
+      badge.remove();
+      clearInterval(interval);
+      return;
+    }
+
     if (Math.floor(60 - (Date.now() - data.turnStartTime) / 1000) <= 1) {
       badge.remove();
       clearInterval(interval);
@@ -17,6 +23,8 @@ function timerBadgeRender(data: any) {
     }
 
     badge.innerText = Math.floor(60 - (Date.now() - data.turnStartTime) / 1000).toString();
+
+    i += 300;
   }, 300);
 }
 

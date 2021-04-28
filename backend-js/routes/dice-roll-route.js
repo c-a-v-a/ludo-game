@@ -10,7 +10,8 @@ function diceRoll(req, res) {
         if (error)
             console.error(error);
         if (req.session.playerNick !== data.players[data.turn].nick ||
-            req.session.playerColor !== data.players[data.turn].color)
+            req.session.playerColor !== data.players[data.turn].color ||
+            data.dice !== 0)
             return;
         if (data) {
             let diceRoll = helper_functions_js_1.randomInteger(1, 6);
