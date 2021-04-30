@@ -6,8 +6,10 @@
     "build-helper": "tsc -p ./helper-functions/ts/tsconfig.json",
     "build-backend": "tsc -p ./backend-ts/tsconfig.json",
     "build-frontend": "tsc -p ./frontend/tsconfig.json",
+    "build-app": "tsc -p tsconfig.json",
     "dev": "ts-node-dev --respawn app.ts",
-    "build": "yarn build-backend && yarn build-frontend && yarn build-helper"
+    "build": "yarn build-backend && yarn build-frontend && yarn build-helper && yarn build-app",
+    "start": "node app.js"
   },
   "author": "c-a-v-a",
   "license": "GPL-3.0",
