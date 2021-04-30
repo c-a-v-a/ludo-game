@@ -92,7 +92,7 @@ class UpdateModule {
           else DiceRoll.diceRollRender(JSON.parse(info).dice);
 
           fetch('/checkIfGameWon', { method: 'POST' }).then((data) => {
-            if (data.url !== 'http://https://cava-ludo.herokuapp.com/checkIfGameWon')
+            if (data.url !== 'https://cava-ludo.herokuapp.com/checkIfGameWon')
               (window.location as any) = data.url;
           });
         } else {
