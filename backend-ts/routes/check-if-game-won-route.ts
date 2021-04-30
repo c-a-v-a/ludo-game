@@ -30,11 +30,13 @@ function checkIfGameWon(req: Request, res: Response) {
         if (
           (req.session as any).playerNick === data.winner.nick &&
           (req.session as any).playerColor === data.winner.color
-        )
+        ) {
+          req.session.destroy(() => console.log('destroyed'));
           res.redirect('/winner');
-        else if (data.winner.nick !== 'none' && data.winner.color !== 'none')
+        } else if (data.winner.nick !== 'none' && data.winner.color !== 'none') {
+          req.session.destroy(() => console.log('destroyed'));
           res.redirect('/looser');
-        else res.end();
+        } else res.end();
       });
     }
   });

@@ -27,10 +27,14 @@ function checkIfGameWon(req, res) {
             }
             data.save().then(() => {
                 if (req.session.playerNick === data.winner.nick &&
-                    req.session.playerColor === data.winner.color)
+                    req.session.playerColor === data.winner.color) {
+                    req.session.destroy(() => console.log('destroyed'));
                     res.redirect('/winner');
-                else if (data.winner.nick !== 'none' && data.winner.color !== 'none')
+                }
+                else if (data.winner.nick !== 'none' && data.winner.color !== 'none') {
+                    req.session.destroy(() => console.log('destroyed'));
                     res.redirect('/looser');
+                }
                 else
                     res.end();
             });

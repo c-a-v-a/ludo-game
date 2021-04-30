@@ -1,15 +1,16 @@
 // * Module for moving player's token for room.ts
+class MoveToken {
+  static async moveToken(tokenNumber: number) {
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ token: tokenNumber }),
+    };
 
-async function moveToken(tokenNumber: number) {
-  const options = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ token: tokenNumber }),
-  };
-
-  fetch('/moveToken', options).then(() => console.log('token moved'));
+    fetch('/moveToken', options).then(() => console.log('token moved'));
+  }
 }
 
-export { moveToken };
+export { MoveToken };

@@ -1,19 +1,21 @@
-import { speakNumber } from './speak-module.js';
+import { SpeakModule } from './speak-module.js';
 
-function diceRollRender(diceNumber: number) {
-  const row = document.getElementById('rolled-number-row');
+class DiceRoll {
+  static diceRollRender(diceNumber: number) {
+    const row = document.getElementById('rolled-number-row');
 
-  if (row) row.innerHTML = '';
-  if (diceNumber === 0) return;
+    if (row) row.innerHTML = '';
+    if (diceNumber === 0) return;
 
-  let diceImg = document.createElement('img');
+    let diceImg = document.createElement('img');
 
-  diceImg.classList.add('dice-image');
-  diceImg.src = `../images/${diceNumber}.png`;
+    diceImg.classList.add('dice-image');
+    diceImg.src = `../images/${diceNumber}.png`;
 
-  row?.appendChild(diceImg);
+    row?.appendChild(diceImg);
 
-  speakNumber(diceNumber);
+    SpeakModule.speakNumber(diceNumber);
+  }
 }
 
-export { diceRollRender };
+export { DiceRoll };

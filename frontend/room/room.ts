@@ -1,21 +1,21 @@
 // * Main file for room.html
-import { checkIfPlayerReady } from './ready-module.js';
-import { updatePage } from './update-module.js';
+import { ReadyModule } from './ready-module.js';
+import { UpdateModule } from './update-module.js';
 import { DiceModule } from './dice-module.js';
-import { createGameBoardTable } from './game-board-table-module.js';
+import { GameBoard } from './game-board-table-module.js';
 
 window.addEventListener('DOMContentLoaded', function () {
   // Add event to switch
   if (document.getElementById('ready-switch'))
-    document.getElementById('ready-switch')!.onchange = checkIfPlayerReady;
+    document.getElementById('ready-switch')!.onchange = ReadyModule.checkIfPlayerReady;
 
   if (document.getElementById('dice-button'))
     document.getElementById('dice-button')!.onclick = DiceModule.rollTheDice;
 
-  createGameBoardTable();
+  GameBoard.createGameBoardTable();
 
-  updatePage();
-  setInterval(updatePage, 3000);
+  UpdateModule.updatePage();
+  setInterval(UpdateModule.updatePage, 3000);
 });
 
 // TODO Clean up/add comments

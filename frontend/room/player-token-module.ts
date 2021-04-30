@@ -1,6 +1,5 @@
 import { boardPositions } from './position-to-array.js';
-import { updatePage } from './update-module.js';
-import { moveToken } from './move-token-module.js';
+import { MoveToken } from './move-token-module.js';
 
 class PlayerToken {
   color: string;
@@ -47,7 +46,7 @@ class PlayerToken {
         .then((response) => response.json())
         .then(async (data) => {
           if (data.canMove) {
-            await moveToken(this.tokenIndex);
+            await MoveToken.moveToken(this.tokenIndex);
             this.updatePosition(data.position);
           }
         });

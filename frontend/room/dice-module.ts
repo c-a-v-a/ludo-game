@@ -1,5 +1,5 @@
 // * Dice module for room.ts
-import { diceRollRender } from './dice-roll-render-module.js';
+import { DiceRoll } from './dice-roll-render-module.js';
 
 class DiceModule {
   /**
@@ -11,7 +11,7 @@ class DiceModule {
     fetch('/diceRoll', { method: 'POST' })
       .then((response) => response.json())
       .then((data) => {
-        diceRollRender(data.rolled);
+        DiceRoll.diceRollRender(data.rolled);
 
         setTimeout(() => {
           if (data.canMove === false)

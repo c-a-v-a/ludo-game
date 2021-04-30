@@ -68,6 +68,7 @@ function checkIfPlayerCanMove(data, res, diceRoll) {
         else
             data.turn++;
         data.dice = 0;
+        data.turnStartTime = Date.now();
     }
     res.json({ canMove: canMove, rolled: diceRoll });
 }

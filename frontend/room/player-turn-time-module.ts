@@ -1,31 +1,33 @@
-function timerBadgeRender(data: any) {
-  const playerRow = document.getElementById('players-row');
-  const playerPill = playerRow?.children[data.turn];
-  const badge = document.createElement('span');
-  let i = 0;
+class PlayerTurnTime {
+  static timerBadgeRender(data: any) {
+    const playerRow = document.getElementById('players-row');
+    const playerPill = playerRow?.children[data.turn];
+    const badge = document.createElement('span');
+    let i = 0;
 
-  badge.classList.add('badge', 'rounded-pill', 'bg-danger');
-  badge.id = 'badge';
+    badge.classList.add('badge', 'rounded-pill', 'bg-danger');
+    badge.id = 'badge';
 
-  playerPill?.appendChild(badge);
+    playerPill?.appendChild(badge);
 
-  let interval = setInterval(() => {
-    if (i >= 3000) {
-      badge.remove();
-      clearInterval(interval);
-      return;
-    }
+    let interval = setInterval(() => {
+      if (i >= 3000) {
+        badge.remove();
+        clearInterval(interval);
+        return;
+      }
 
-    if (Math.floor(60 - (Date.now() - data.turnStartTime) / 1000) <= 1) {
-      badge.remove();
-      clearInterval(interval);
-      return;
-    }
+      if (Math.floor(60 - (Date.now() - data.turnStartTime) / 1000) <= 1) {
+        badge.remove();
+        clearInterval(interval);
+        return;
+      }
 
-    badge.innerText = Math.floor(60 - (Date.now() - data.turnStartTime) / 1000).toString();
+      badge.innerText = Math.floor(60 - (Date.now() - data.turnStartTime) / 1000).toString();
 
-    i += 300;
-  }, 300);
+      i += 300;
+    }, 300);
+  }
 }
 
-export { timerBadgeRender };
+export { PlayerTurnTime };
